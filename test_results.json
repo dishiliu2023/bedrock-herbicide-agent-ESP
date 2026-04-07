@@ -1,0 +1,417 @@
+{
+  "run_timestamp": "2026-03-27T19:00:04.563681Z",
+  "agent_id": "GC6LBGNWES",
+  "agent_alias_id": "AMJSCHXS0M",
+  "eval_model": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+  "total_time_seconds": 221.8,
+  "results": [
+    {
+      "test_id": "TC-01",
+      "name": "Standard single weed, post, G3, wait PASS",
+      "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Abutilon theophrasti, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Monsoon (1,5L/HA)**\n\nAdvertencia: Aplicar Monsoon solamente antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Abutilon theophrasti, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Monsoon (1,5L/HA)**\n\nAdvertencia: Aplicar Monsoon solamente antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post-emergence. Rank 1 treatment is Laudis WG (0.5KG/HA) and Monsoon (1.5L/HA), lower_score=5. Wait times for trigo G3: Laudis WG=5 months, Monsoon=1 month. Trigo planting interval=5 months from June. Both pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a clear herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Laudis WG is mentioned in the recommendation"
+          },
+          "3": {
+            "pass": true,
+            "note": "Monsoon is mentioned in the recommendation"
+          },
+          "4": {
+            "pass": false,
+            "note": "Warning about Monsoon application before 6 leaf stage is present"
+          }
+        },
+        "score": 4,
+        "explanation": "Recommendation is correct with minor issue of including an application warning"
+      }
+    },
+    {
+      "test_id": "TC-02",
+      "name": "Standard single weed, pre, G3, wait FAIL top ranks",
+      "query": "En mi campo de maiz en Zaragoza tengo Abutilon theophrasti. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo. El suelo no es arenoso.",
+      "agent_response": "Para campos de maíz en Zaragoza con suelo no arenoso, para controlar la mala hierba Abutilon theophrasti, con ajo como cultivo de la próxima temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Spade Flexx (0,4 L/HA)**",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Abutilon theophrasti. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo. El suelo no es arenoso."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza con suelo no arenoso, para controlar la mala hierba Abutilon theophrasti, con ajo como cultivo de la próxima temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Spade Flexx (0,4 L/HA)**"
+        }
+      ],
+      "expected": "Group 3, high dose, pre-emergence, not sandy soil. Ajo planting interval=4 months. Rank 1 (Adengo 0.44 + Dimetenamida): Adengo wait=6 > 4, FAILS. Rank 2 (Adengo alone): wait=6 > 4, FAILS. Rank 3 (Spade Flexx 0.4): wait=1 <= 4, PASSES. Primary recommendation should be Spade Flexx. Reason of exclusion should mention the higher-ranked treatments that failed.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a clear herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommends Spade Flexx as primary treatment"
+          },
+          "3": {
+            "pass": false,
+            "note": "Does not explicitly mention exclusion of other treatments"
+          },
+          "4": {
+            "pass": true,
+            "note": "Does not recommend Adengo as primary treatment"
+          }
+        },
+        "score": 4,
+        "explanation": "Mostly correct response with appropriate herbicide recommendation, but lacks explicit explanation of why other treatments were excluded"
+      }
+    },
+    {
+      "test_id": "TC-03",
+      "name": "Two-weed combo, post, G3",
+      "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti y Amaranthus albus. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar Abutilon theophrasti y Amaranthus albus, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Abutilon theophrasti y Amaranthus albus. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar Abutilon theophrasti y Amaranthus albus, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Two-weed combo, Group 3, high dose, post-emergence. Rank 1 = Monsoon (1.5 L/HA) and Fluva (0.3 L/HA), lower_score=5. Wait times for trigo G3: Monsoon=1, Fluva=1. Both pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains clear herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Monsoon mentioned at correct dose (1.5 L/HA)"
+          },
+          "3": {
+            "pass": true,
+            "note": "Fluva mentioned at correct dose (0.3 L/HA)"
+          },
+          "4": {
+            "pass": true,
+            "note": "References both Abutilon theophrasti and Amaranthus albus"
+          }
+        },
+        "score": 5,
+        "explanation": "Perfect recommendation matching all criteria for post-emergence herbicide treatment in maize with specified weeds and future crop"
+      }
+    },
+    {
+      "test_id": "TC-04",
+      "name": "Amaranthus palmeri, G3, HIGH pressure, consecutive",
+      "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Amaranthus palmeri, con trigo a plantar en la siguiente temporada, en casos de alta presión de malas hierbas, la solución recomendada es un esquema de aplicación consecutiva que consiste en tratamientos tanto de pre-emergencia como de post-emergencia. \n\nLa aplicación de pre-emergencia implica usar Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Esto debe ser seguido por una aplicación de post-emergencia de Fluva (0.3 L/HA) + Oizysa (0.5 L/HA).\n\nRequisito agronómico para la siembra del próximo cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Amaranthus palmeri, con trigo a plantar en la siguiente temporada, en casos de alta presión de malas hierbas, la solución recomendada es un esquema de aplicación consecutiva que consiste en tratamientos tanto de pre-emergencia como de post-emergencia. \n\nLa aplicación de pre-emergencia implica usar Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Esto debe ser seguido por una aplicación de post-emergencia de Fluva (0.3 L/HA) + Oizysa (0.5 L/HA).\n\nRequisito agronómico para la siembra del próximo cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar."
+        }
+      ],
+      "expected": "Hardcoded Amaranthus palmeri path for Group 3, high pressure. Consecutive scheme: Pre = Spade Flexx 0.33 + Dimetenamida 72% 1.4 + Diflufenican 50% 0.24. Post = Fluva 0.3 + Oizysa 0.5. All wait times pass for trigo G3.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Spade Flexx mentioned in pre-emergence treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Dimetenamida mentioned in pre-emergence treatment"
+          },
+          "3": {
+            "pass": true,
+            "note": "Diflufenican mentioned in pre-emergence treatment"
+          },
+          "4": {
+            "pass": true,
+            "note": "Fluva mentioned in post-emergence treatment"
+          },
+          "5": {
+            "pass": true,
+            "note": "Oizysa mentioned in post-emergence treatment"
+          },
+          "6": {
+            "pass": true,
+            "note": "Consecutive scheme with pre and post-emergence applications described"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response matching all specified criteria for Amaranthus palmeri control in maize field"
+      }
+    },
+    {
+      "test_id": "TC-05",
+      "name": "Amaranthus palmeri, G3, LOW pressure, pre-only",
+      "query": "En mi campo de maiz en Zaragoza tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar la mala hierba Amaranthus palmeri, con trigo a plantar en la próxima temporada, en casos de baja presión de malezas, la recomendación es aplicaciones en pre-emergencia de Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Un solo tratamiento en post-emergencia no es suficiente, incluso bajo presión moderada.\n\nCon el requisito agronómico para la siembra del siguiente cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar la mala hierba Amaranthus palmeri, con trigo a plantar en la próxima temporada, en casos de baja presión de malezas, la recomendación es aplicaciones en pre-emergencia de Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Un solo tratamiento en post-emergencia no es suficiente, incluso bajo presión moderada.\n\nCon el requisito agronómico para la siembra del siguiente cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar."
+        }
+      ],
+      "expected": "Hardcoded Amaranthus palmeri path for Group 3, low pressure. Pre-emergence only: Spade Flexx 0.33 + Dimetenamida 72% 1.4 + Diflufenican 50% 0.24. States that post-emergence alone is insufficient.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Spade Flexx mentioned at 0.33 L/HA"
+          },
+          "2": {
+            "pass": true,
+            "note": "Dimetenamida 72% mentioned at 1.4 L/HA"
+          },
+          "3": {
+            "pass": true,
+            "note": "Diflufenican 50% mentioned at 0.24 KG/HA"
+          },
+          "4": {
+            "pass": true,
+            "note": "Explicitly states single post-emergence treatment is insufficient"
+          },
+          "5": {
+            "pass": true,
+            "note": "No mention of Fluva or Oizysa as post-emergence treatments"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response meeting all specified criteria for Amaranthus palmeri pre-emergence herbicide treatment"
+      }
+    },
+    {
+      "test_id": "TC-06",
+      "name": "Cyperus rotundus, G1, LOW pressure, post",
+      "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Galicia, para controlar la mala hierba Cyperus rotundus, con trigo a plantar en la próxima temporada, en casos de baja presión de malas hierbas y un tratamiento post-emergencia, la recomendación es aplicaciones de Monsoon (1.5 L/HA) junto con Fluva (0.3 L/HA). Con el requisito agronómico para la plantación del próximo cultivo:\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Galicia, para controlar la mala hierba Cyperus rotundus, con trigo a plantar en la próxima temporada, en casos de baja presión de malas hierbas y un tratamiento post-emergencia, la recomendación es aplicaciones de Monsoon (1.5 L/HA) junto con Fluva (0.3 L/HA). Con el requisito agronómico para la plantación del próximo cultivo:\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas."
+        }
+      ],
+      "expected": "Hardcoded Cyperus G1 path, low pressure, post-emergence. Treatment: Monsoon (1.5 L/HA) + Fluva (0.3 L/HA). Monsoon warning about applying before corn 6-leaf stage.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Monsoon correctly mentioned as recommended product"
+          },
+          "2": {
+            "pass": true,
+            "note": "Fluva correctly mentioned as recommended product"
+          },
+          "3": {
+            "pass": true,
+            "note": "Warning about 6-leaf stage of corn included"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response matching all verification criteria with precise herbicide recommendation and application warning"
+      }
+    },
+    {
+      "test_id": "TC-07",
+      "name": "Setaria viridis, G1, HIGH pressure, consecutive",
+      "query": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Asturias, para controlar la mala hierba Setaria viridis, con trigo a sembrar en la próxima temporada, en casos de alta presión de malas hierbas, la solución recomendada es un esquema de aplicación consecutiva que consiste en tratamientos tanto de pre-emergencia como de post-emergencia. La aplicación de pre-emergencia implica usar Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA); Esto debe ser seguido por una aplicación de post-emergencia de Monsoon (1.5 L/HA) junto con Cubix (1.5 L/HA). Es importante monitorear de cerca la emergencia de malas hierbas y tratar Setaria tan pronto como aparezca, mientras aún es pequeña. Con el requisito agronómico para la siembra del próximo cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar;\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Asturias, para controlar la mala hierba Setaria viridis, con trigo a sembrar en la próxima temporada, en casos de alta presión de malas hierbas, la solución recomendada es un esquema de aplicación consecutiva que consiste en tratamientos tanto de pre-emergencia como de post-emergencia. La aplicación de pre-emergencia implica usar Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA); Esto debe ser seguido por una aplicación de post-emergencia de Monsoon (1.5 L/HA) junto con Cubix (1.5 L/HA). Es importante monitorear de cerca la emergencia de malas hierbas y tratar Setaria tan pronto como aparezca, mientras aún es pequeña. Con el requisito agronómico para la siembra del próximo cultivo: Evitar la siembra directa. Hacer las labores normales de preparación de suelo antes de sembrar;\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas."
+        }
+      ],
+      "expected": "Hardcoded Setaria G1 high-pressure path. Pre: Spade Flexx 0.33 + Dimetenamida 72% 1.4. Post: Monsoon 1.5 + Cubix 1.5. Includes warning to monitor weed emergence and treat Setaria early.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Spade Flexx mentioned in pre-emergence treatment at 0.33 L/HA"
+          },
+          "2": {
+            "pass": true,
+            "note": "Dimetenamida 72% mentioned in pre-emergence treatment at 1.4 L/HA"
+          },
+          "3": {
+            "pass": true,
+            "note": "Monsoon mentioned in post-emergence treatment at 1.5 L/HA"
+          },
+          "4": {
+            "pass": true,
+            "note": "Cubix mentioned in post-emergence treatment at 1.5 L/HA"
+          },
+          "5": {
+            "pass": true,
+            "note": "Clearly describes a consecutive pre-emergence and post-emergence treatment scheme"
+          },
+          "6": {
+            "pass": true,
+            "note": "Explicitly mentions monitoring weed emergence and treating Setaria early while small"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete and precise herbicide recommendation matching all specified criteria for Setaria viridis control in maize"
+      }
+    },
+    {
+      "test_id": "TC-08",
+      "name": "Group 2, post, development stage, low dose",
+      "query": "En mi campo de maiz en Burgos tengo Amaranthus retroflexus en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Burgos, para controlar la mala hierba Amaranthus retroflexus en estado de menos de tres hojas, con trigo como cultivo para la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.75 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Burgos tengo Amaranthus retroflexus en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Burgos, para controlar la mala hierba Amaranthus retroflexus en estado de menos de tres hojas, con trigo como cultivo para la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.75 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Group 2, post-emergence, less than three leaves -> low dose. Rank 1 low dose post for Amaranthus retroflexus = Monsoon (1.75 L/HA) and Fluva (0.3 L/HA), lower_score=6. All wait times pass for trigo in Group 2.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a specific herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Mentions Monsoon as a primary recommendation"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions Fluva in the recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "Explicitly references Amaranthus retroflexus"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response matching expected herbicide treatment for post-emergence Amaranthus retroflexus in maize with appropriate product and dosage"
+      }
+    },
+    {
+      "test_id": "TC-09",
+      "name": "Spanish common name resolution (bledo)",
+      "query": "En mi campo de maiz en Navarra tengo bledo. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "¿Podría especificar qué tipo exacto de bledo tiene? (por ejemplo, Amaranthus retroflexus, Amaranthus palmeri, etc.)",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo bledo. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "¿Podría especificar qué tipo exacto de bledo tiene? (por ejemplo, Amaranthus retroflexus, Amaranthus palmeri, etc.)"
+        }
+      ],
+      "expected": "'bledo' is the Spanish common name for Amaranthus species. The embedding-based name resolution should map it to an Amaranthus species. Group 3, high dose, post-emergence. Should return a valid treatment.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No herbicide recommendation provided, only a clarifying question"
+          },
+          "2": {
+            "pass": false,
+            "note": "No Amaranthus species or treatment products mentioned"
+          },
+          "3": {
+            "pass": false,
+            "note": "Response asks user to clarify weed name instead of providing recommendation"
+          }
+        },
+        "score": 1,
+        "explanation": "Chatbot failed to provide a herbicide recommendation and instead asked for further clarification, which is not the expected behavior for a herbicide recommendation system"
+      }
+    },
+    {
+      "test_id": "TC-10",
+      "name": "Taboo products exclusion",
+      "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo. No tengo disponible Laudis WG ni Monsoon.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Abutilon Theophrasti, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Capreno (0.29 L/HA) and Fluva (0.3 L/HA)**\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo. No tengo disponible Laudis WG ni Monsoon."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Abutilon Theophrasti, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Capreno (0.29 L/HA) and Fluva (0.3 L/HA)**\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Group 3, high dose, post-emergence. Laudis WG and Monsoon are taboo. Ranks 1-6 all contain Laudis WG or Monsoon, so they are excluded. First valid treatment = Rank 7: Capreno (0.29 L/HA) and Fluva (0.3 L/HA), lower_score=5. All wait times pass for trigo G3.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a specific herbicide recommendation for Abutilon theophrasti"
+          },
+          "2": {
+            "pass": true,
+            "note": "Does not mention Laudis WG"
+          },
+          "3": {
+            "pass": true,
+            "note": "Does not mention Monsoon"
+          },
+          "4": {
+            "pass": true,
+            "note": "Mentions Capreno and Fluva as the recommended products"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct recommendation matching the expected treatment for maize with Abutilon theophrasti and future wheat crop"
+      }
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "avg_score": 4.4,
+    "passed": 9,
+    "failed": 1
+  }
+}

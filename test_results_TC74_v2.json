@@ -1,0 +1,54 @@
+{
+  "run_timestamp": "2026-03-28T15:47:56.117975+00:00",
+  "agent_id": "GC6LBGNWES",
+  "agent_alias_id": "AMJSCHXS0M",
+  "eval_model": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+  "total_time_seconds": 18.6,
+  "results": [
+    {
+      "test_id": "TC-74",
+      "name": "Standard weed, G1, post, algodon (10mo interval)",
+      "query": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon.",
+      "agent_response": "Parece que no puedo procesar correctamente el algodón como cultivo siguiente. Por favor, ¿podría indicarme qué otro cultivo tiene pensado plantar después del maíz? Necesito un cultivo que esté en nuestra base de datos para poder recomendarle un tratamiento herbicida adecuado.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon."
+        },
+        {
+          "role": "agent",
+          "text": "Parece que no puedo procesar correctamente el algodón como cultivo siguiente. Por favor, ¿podría indicarme qué otro cultivo tiene pensado plantar después del maíz? Necesito un cultivo que esté en nuestra base de datos para poder recomendarle un tratamiento herbicida adecuado."
+        }
+      ],
+      "expected": "Group 1, high dose, post. Algodon interval=10mo (Apr next year). All products should easily pass at 10mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No herbicide recommendation provided"
+          },
+          "2": {
+            "pass": false,
+            "note": "Laudis WG not mentioned"
+          },
+          "3": {
+            "pass": false,
+            "note": "Monsoon not mentioned"
+          },
+          "4": {
+            "pass": false,
+            "note": "No plant-back recommendation given"
+          }
+        },
+        "score": 1,
+        "explanation": "Chatbot failed to provide a herbicide recommendation and did not address the specific weed and crop situation"
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "avg_score": 1.0,
+    "passed": 0,
+    "failed": 1
+  }
+}

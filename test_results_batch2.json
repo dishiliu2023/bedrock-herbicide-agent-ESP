@@ -1,0 +1,1631 @@
+{
+  "run_timestamp": "2026-03-28T11:58:02.170361+00:00",
+  "agent_id": "GC6LBGNWES",
+  "agent_alias_id": "AMJSCHXS0M",
+  "eval_model": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+  "total_time_seconds": 1022.4,
+  "results": [
+    {
+      "test_id": "TC-61",
+      "name": "Datura stramonium, G3, post, cebada (untested weed+crop)",
+      "query": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebada.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Datura stramonium, con cebada a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebada."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Datura stramonium, con cebada a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 for Datura = Laudis WG (0.5KG/HA) and Oizysa (0.5L/HA), score=5. Cebada interval=5mo (Nov-Jun). Wait times should pass for this treatment.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a specific herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Mentions Laudis WG in the recommendation"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions Oizysa in the recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "References Datura stramonium in the context"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct recommendation matching all specified criteria for Datura stramonium control in maize with cebada as next crop"
+      }
+    },
+    {
+      "test_id": "TC-62",
+      "name": "Digitaria sanguinalis, G3, post, avena (untested weed+crop)",
+      "query": "En mi campo de maiz en Zaragoza tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera avena.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar la mala hierba Digitaria sanguinalis, con avena como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5 KG/HA)**\n\n¿Desea conocer opciones alternativas de herbicidas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera avena."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar la mala hierba Digitaria sanguinalis, con avena como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5 KG/HA)**\n\n¿Desea conocer opciones alternativas de herbicidas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 for Digitaria = Laudis WG (0.5 KG/HA), score=5. Avena interval=5mo. Wait time should pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a clear herbicide recommendation for Digitaria sanguinalis in maize"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly recommends Laudis WG at 0.5 KG/HA"
+          },
+          "3": {
+            "pass": true,
+            "note": "Digitaria sanguinalis is mentioned/addressed in the response"
+          }
+        },
+        "score": 5,
+        "explanation": "Perfect response matching all criteria for herbicide recommendation, with correct product, dosage, and context"
+      }
+    },
+    {
+      "test_id": "TC-63",
+      "name": "Polygonum aviculare, G1, post, triticale (untested weed+crop)",
+      "query": "En mi campo de maiz en Galicia tengo Polygonum aviculare. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera triticale.",
+      "agent_response": "Para campos de maíz en Galicia, para controlar la mala hierba Polygonum aviculare, con triticale para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Galicia tengo Polygonum aviculare. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera triticale."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Galicia, para controlar la mala hierba Polygonum aviculare, con triticale para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Group 1, high dose, post. Rank 1 for Polygonum aviculare = Laudis WG + Monsoon, score=5. Triticale interval=5mo. Should pass wait times.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Response includes a clear herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Laudis WG is mentioned in the primary recommendation"
+          },
+          "3": {
+            "pass": true,
+            "note": "Monsoon is mentioned in the primary recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "No plant-back restriction warning for triticale"
+          }
+        },
+        "score": 5,
+        "explanation": "Recommendation meets all specified criteria for controlling Polygonum aviculare in maize with post-emergence application"
+      }
+    },
+    {
+      "test_id": "TC-64",
+      "name": "Xanthium strumarium, G3, post, garbanzo (untested weed+crop)",
+      "query": "En mi campo de maiz en Navarra tengo Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera garbanzo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Xanthium strumarium, con garbanzo como cultivo de la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera garbanzo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Xanthium strumarium, con garbanzo como cultivo de la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 for Xanthium = Laudis WG + Oizysa, score=6. Garbanzo interval=8mo (Feb next year - Jun). Laudis WG=1, Oizysa=1 both pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a clear herbicide recommendation for Xanthium strumarium"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Laudis WG in the recommendation"
+          },
+          "3": {
+            "pass": true,
+            "note": "Explicitly mentions Oizysa in the recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "References Xanthium strumarium in the context"
+          }
+        },
+        "score": 5,
+        "explanation": "Recommendation fully meets all criteria with correct herbicide combination for post-emergent Xanthium control in maize with garbanzos as next crop"
+      }
+    },
+    {
+      "test_id": "TC-65",
+      "name": "Portulaca oleracea, G3, post, veza - top ranks fail wait",
+      "query": "En mi campo de maiz en Huesca tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera veza.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Portulaca oleracea, con veza para ser plantada en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA)**\n\n¿Le gustaría conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera veza."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Portulaca oleracea, con veza para ser plantada en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA)**\n\n¿Le gustaría conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 = Monsoon+Oizysa (score 5). Veza interval=5mo. Monsoon wait=11 -> FAILS. Rank 2=Capreno+Oizysa (5), Capreno=11 -> FAILS. First valid candidate should be a treatment without Monsoon/Capreno/Fluva/Diflufenican (all have long waits for veza).",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains Laudis WG and Oizysa as a herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommendation does not include Monsoon"
+          },
+          "3": {
+            "pass": false,
+            "note": "No mention of plant-back restrictions or residue limitations"
+          },
+          "4": {
+            "pass": true,
+            "note": "Mentions Portulaca oleracea in the query context"
+          }
+        },
+        "score": 4,
+        "explanation": "Good product recommendation, but lacks explicit plant-back interval information"
+      }
+    },
+    {
+      "test_id": "TC-66",
+      "name": "Chenopodium album, G3, post, habas - Fluva fails wait",
+      "query": "En mi campo de maiz en Zaragoza tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera habas.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar Chenopodium album, con habas como cultivo posterior para la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a esta recomendación principal?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera habas."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar Chenopodium album, con habas como cultivo posterior para la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer alternativas a esta recomendación principal?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 = Laudis WG + Fluva (score 6). Habas interval=5mo. Fluva wait=24 -> FAILS. Rank 2 = Laudis WG + Oizysa (score 6), Oizysa=1 -> PASSES. Primary should be Laudis WG + Oizysa.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a clear herbicide recommendation for post-emergent treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommends Laudis WG in the primary treatment"
+          },
+          "3": {
+            "pass": true,
+            "note": "Includes Oizysa in the recommendation, which is the correct co-treatment"
+          },
+          "4": {
+            "pass": true,
+            "note": "Does not recommend Fluva, which would fail the wait time requirement"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct recommendation matching all specified criteria for post-emergent Chenopodium album control in maize with beans as the next crop"
+      }
+    },
+    {
+      "test_id": "TC-67",
+      "name": "Cirsium arvense, G3, post, brocoli - Monsoon fails wait",
+      "query": "En mi campo de maiz en Navarra tengo Cirsium arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Cirsium arvense, con brócoli como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Le gustaría conocer alternativas a esta solución?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Cirsium arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Cirsium arvense, con brócoli como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Le gustaría conocer alternativas a esta solución?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 = Laudis WG + Monsoon (5). Brocoli interval=4mo. Monsoon wait=6 -> FAILS. Next rank without Monsoon should become primary (e.g. Laudis WG + Fluva or similar).",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a specific herbicide recommendation (Laudis WG + Fluva)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Does not include Monsoon, avoiding the 6-month waiting issue"
+          },
+          "3": {
+            "pass": true,
+            "note": "Explicitly references Cirsium arvense (cardo)"
+          },
+          "4": {
+            "pass": true,
+            "note": "Mentions brócoli as the next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully compliant recommendation addressing weed control in maize with appropriate herbicide mix and crop rotation considerations"
+      }
+    },
+    {
+      "test_id": "TC-69",
+      "name": "Stellaria media, G2, pre-emergence -> low dose",
+      "query": "En mi campo de maiz en Zamora tengo Stellaria media. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera cebada.",
+      "agent_response": "Para campos de maíz en Zamora, para controlar la mala hierba Stellaria media, con cebada a plantar en la próxima temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Adengo (0,33 L/HA)**\n\nAdvertencia: Si Adengo se aplicó en la última temporada, no puede aplicar este tratamiento para esta temporada.\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zamora tengo Stellaria media. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera cebada."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zamora, para controlar la mala hierba Stellaria media, con cebada a plantar en la próxima temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Adengo (0,33 L/HA)**\n\nAdvertencia: Si Adengo se aplicó en la última temporada, no puede aplicar este tratamiento para esta temporada.\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Group 2, pre-emergence -> low dose (no stage asked for pre). Cebada interval=5mo. Should return a low-dose pre-emergence treatment.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Adengo recommended as a specific herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Stellaria media (pamplina) mentioned in the context of treatment"
+          },
+          "3": {
+            "pass": true,
+            "note": "No questions asked about weed development stage, appropriate for pre-emergence"
+          },
+          "4": {
+            "pass": true,
+            "note": "Mentions cebada as the next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Correct pre-emergence herbicide recommendation for Stellaria media in maize field with cebada as next crop"
+      }
+    },
+    {
+      "test_id": "TC-70",
+      "name": "Galinsoga parviflora, G3, pre, not sandy -> high dose",
+      "query": "En mi campo de maiz en Huesca tengo Galinsoga parviflora. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera patata.",
+      "agent_response": "No hay tratamientos aplicables o ningún tratamiento cumple con el estándar de degradación de residuos para el cultivo siguiente especificado. Los siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Adengo (0.44 L/HA) (12 meses), Adengo (0.44 L/HA) y Dimetenamida 72% (1L/HA) (12 meses), Spade Flexx (0.4 L/HA) (11 meses)",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Galinsoga parviflora. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera patata."
+        },
+        {
+          "role": "agent",
+          "text": "No hay tratamientos aplicables o ningún tratamiento cumple con el estándar de degradación de residuos para el cultivo siguiente especificado. Los siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Adengo (0.44 L/HA) (12 meses), Adengo (0.44 L/HA) y Dimetenamida 72% (1L/HA) (12 meses), Spade Flexx (0.4 L/HA) (11 meses)"
+        }
+      ],
+      "expected": "Group 3, pre-emergence, not sandy -> high dose. Patata interval=9mo (Mar next year). Should return high-dose pre-emergence treatment.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No valid herbicide recommendation provided; response states no treatments are applicable"
+          },
+          "2": {
+            "pass": true,
+            "note": "Mentions Galinsoga parviflora in context"
+          },
+          "3": {
+            "pass": true,
+            "note": "References patata as next crop"
+          }
+        },
+        "score": 1,
+        "explanation": "Chatbot failed to provide a valid pre-emergence herbicide recommendation for Galinsoga parviflora, despite mentioning some potentially suitable products like Adengo and Spade Flexx"
+      }
+    },
+    {
+      "test_id": "TC-71",
+      "name": "Panicum dichotomiflorum, G3, post, col (4mo interval)",
+      "query": "En mi campo de maiz en Zaragoza tengo Panicum dichotomiflorum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar la mala hierba Panicum dichotomiflorum, con col como cultivo para la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Panicum dichotomiflorum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar la mala hierba Panicum dichotomiflorum, con col como cultivo para la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 = Monsoon+Cubix (score 5). Col interval=4mo (Oct-Jun). Monsoon wait for Col likely ~6mo -> FAILS. Should skip to ranks without long-wait products.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains Laudis WG and Cubix as herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly mentions controlling Panicum dichotomiflorum"
+          },
+          "3": {
+            "pass": true,
+            "note": "References col as next crop"
+          }
+        },
+        "score": 2,
+        "explanation": "Product combination fails crop rotation interval requirements. Monsoon+Cubix would require too long a wait for col planting, and chatbot should have selected alternative products with shorter intervals"
+      }
+    },
+    {
+      "test_id": "TC-72",
+      "name": "Papaver rhoeas, G3, post, cebolla (9mo interval)",
+      "query": "En mi campo de maiz en Navarra tengo Papaver rhoeas. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebolla.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar Papaver rhoeas, con cebolla a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Papaver rhoeas. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebolla."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar Papaver rhoeas, con cebolla a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Cebolla interval=9mo (Mar next year - Jun). Most products should pass with 9mo interval.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Monsoon and Fluva as specific herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly mentions Papaver rhoeas control"
+          },
+          "3": {
+            "pass": true,
+            "note": "References cebolla as the next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive response with correct herbicide recommendation for maize with Papaver rhoeas and considering cebolla as next crop, with appropriate application guidance"
+      }
+    },
+    {
+      "test_id": "TC-73",
+      "name": "Standard weed, G3, post, tomate (9mo interval)",
+      "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tomate.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Abutilon theophrasti, con tomate como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tomate."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Abutilon theophrasti, con tomate como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Tomate interval=9mo (Mar next year). Most products pass at 9mo. Rank 1 = Laudis WG + Monsoon should pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a specific herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Laudis WG is mentioned in the recommendation"
+          },
+          "3": {
+            "pass": false,
+            "note": "Monsoon is not mentioned in the recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "Tomate as next crop is referenced"
+          }
+        },
+        "score": 3,
+        "explanation": "Partially correct recommendation. Laudis WG is correct, but Monsoon is missing. The response addresses the weed and crop context."
+      }
+    },
+    {
+      "test_id": "TC-74",
+      "name": "Standard weed, G1, post, algodon (10mo interval)",
+      "query": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon.",
+      "agent_response": "Lo siento, pero el cultivo de algodón no está en mi base de datos de cultivos disponibles para rotación después del maíz en España. \n\n¿Podría indicarme qué otro cultivo está considerando plantar después del maíz? Esto me permitiría ofrecerle una recomendación de herbicida adecuada que no afecte al siguiente cultivo.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon."
+        },
+        {
+          "role": "agent",
+          "text": "Lo siento, pero el cultivo de algodón no está en mi base de datos de cultivos disponibles para rotación después del maíz en España. \n\n¿Podría indicarme qué otro cultivo está considerando plantar después del maíz? Esto me permitiría ofrecerle una recomendación de herbicida adecuada que no afecte al siguiente cultivo."
+        }
+      ],
+      "expected": "Group 1, high dose, post. Algodon interval=10mo (Apr next year). All products should easily pass at 10mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No herbicide recommendation provided"
+          },
+          "2": {
+            "pass": false,
+            "note": "Laudis WG not mentioned"
+          },
+          "3": {
+            "pass": false,
+            "note": "Monsoon not mentioned"
+          },
+          "4": {
+            "pass": true,
+            "note": "No inappropriate plant-back restriction warning"
+          }
+        },
+        "score": 1,
+        "explanation": "Chatbot failed to provide any herbicide recommendation for Abutilon theophrasti in maize, instead asking for clarification about the next crop"
+      }
+    },
+    {
+      "test_id": "TC-75",
+      "name": "Standard weed, G3, post, tabaco (10mo interval, untested crop)",
+      "query": "En mi campo de maiz en Zaragoza tengo Echinochloa crus-galli. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tabaco.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar Echinochloa crus-galli, con tabaco como siguiente cultivo, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Echinochloa crus-galli. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tabaco."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar Echinochloa crus-galli, con tabaco como siguiente cultivo, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Tabaco interval=10mo (Apr next year). Most products should pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains specific herbicide recommendation (Laudis WG + Cubix)"
+          },
+          "2": {
+            "pass": true,
+            "note": "References Echinochloa crus-galli directly in context"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions tabaco as the next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete and accurate recommendation addressing all specified criteria for herbicide treatment of Echinochloa in maize with tabaco as next crop"
+      }
+    },
+    {
+      "test_id": "TC-76",
+      "name": "Standard weed, G3, post, alubia (11mo interval)",
+      "query": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera alubia.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Solanum nigrum, con alubia como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplique Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera alubia."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Solanum nigrum, con alubia como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplique Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Alubia interval=11mo (May next year). Virtually all products pass at 11mo except possibly 24mo products.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides specific herbicide recommendation of Laudis WG and Monsoon"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly references Solanum nigrum in the context of weed control"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions alubia as the next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive response meeting all verification criteria with specific herbicide recommendation for the given scenario"
+      }
+    },
+    {
+      "test_id": "TC-77",
+      "name": "Standard weed, G3, post, judia verde (11mo interval)",
+      "query": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera judia verde.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Datura stramonium, con judía verde a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Le gustaría conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera judia verde."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Datura stramonium, con judía verde a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Le gustaría conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Judia verde interval=11mo (May next year). Most products should pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Laudis WG and Oizysa as herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Response directly references Datura stramonium"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions judia verde as next crop"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete and accurate recommendation matching all verification criteria"
+      }
+    },
+    {
+      "test_id": "TC-78",
+      "name": "Adengo applied last season -> blocks Adengo/Spade Flexx/Monsoon",
+      "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis en post-emergencia. El proximo cultivo sera trigo. El ano pasado aplique Adengo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Digitaria sanguinalis, con trigo para ser plantado en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5 KG/HA)**\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis en post-emergencia. El proximo cultivo sera trigo. El ano pasado aplique Adengo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Digitaria sanguinalis, con trigo para ser plantado en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5 KG/HA)**\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Group 3, post, adengo_applied=true. All treatments containing Adengo, Spade Flexx, or Monsoon should be filtered out. Remaining treatments should use Laudis WG, Capreno, Fluva, Oizysa, Cubix, etc.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains Laudis WG as a herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommendation does not contain Adengo"
+          },
+          "3": {
+            "pass": true,
+            "note": "Recommendation does not contain Monsoon"
+          },
+          "4": {
+            "pass": true,
+            "note": "Recommendation does not contain Spade Flexx"
+          }
+        },
+        "score": 5,
+        "explanation": "Chatbot correctly recommended Laudis WG while avoiding previously used Adengo and related products"
+      }
+    },
+    {
+      "test_id": "TC-79",
+      "name": "Follow-up with previously applied Capreno -> taboo",
+      "query": "En mi campo de maiz en Huesca tengo Chenopodium album en post-emergencia. Ya aplique Capreno y quiero un tratamiento de seguimiento. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Chenopodium album, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Desea conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Chenopodium album en post-emergencia. Ya aplique Capreno y quiero un tratamiento de seguimiento. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Chenopodium album, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Desea conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Group 3, post, follow_up=true, previously applied Capreno -> Capreno in taboo list. Treatments containing Capreno should be skipped.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Contains a specific herbicide recommendation (Laudis WG + Fluva)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommendation does not include Capreno, which was previously applied"
+          },
+          "3": {
+            "pass": true,
+            "note": "References 'Chenopodium album' directly"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully compliant recommendation addressing the specific weed and avoiding previously used product"
+      }
+    },
+    {
+      "test_id": "TC-81",
+      "name": "Adengo applied + taboo Laudis WG -> severe filtering",
+      "query": "En mi campo de maiz en Navarra tengo Solanum nigrum en post-emergencia. El ano pasado aplique Adengo. No quiero usar Laudis WG. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar Solanum nigrum, con trigo a plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Capreno (0.29 L/HA) y Fluva (0.3 L/HA)**\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Solanum nigrum en post-emergencia. El ano pasado aplique Adengo. No quiero usar Laudis WG. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar Solanum nigrum, con trigo a plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Capreno (0.29 L/HA) y Fluva (0.3 L/HA)**\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "G3, post, adengo_applied=true (blocks Adengo/Spade Flexx/Monsoon) + taboo Laudis WG. Very few treatments remain: only combinations of Capreno, Fluva, Oizysa, Cubix without the blocked products.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a specific herbicide recommendation for Solanum nigrum"
+          },
+          "2": {
+            "pass": true,
+            "note": "Avoids Laudis WG, Adengo, Monsoon, and Spade Flexx as primary recommendations"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions Solanum nigrum (blacknight shade) in the context of treatment"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response with appropriate herbicide recommendation for maize field with Solanum nigrum, avoiding previously used and restricted products"
+      }
+    },
+    {
+      "test_id": "TC-82",
+      "name": "Spanish name verdolaga -> Portulaca oleracea",
+      "query": "En mi campo de maiz en Huesca tengo verdolaga. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Portulaca oleracea, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1,5 L/HA) y Oizysa (0,5 L/HA)**\n\nAdvertencia: Aplicar Monsoon únicamente antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo verdolaga. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Portulaca oleracea, con trigo como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1,5 L/HA) y Oizysa (0,5 L/HA)**\n\nAdvertencia: Aplicar Monsoon únicamente antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Agent should resolve 'verdolaga' to Portulaca oleracea via embedding similarity. Group 3, high dose, post. Trigo interval=5mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided specific herbicide recommendation with dosages"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentioned Portulaca oleracea as the weed"
+          },
+          "3": {
+            "pass": true,
+            "note": "Direct response without asking for clarification"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive response addressing weed control with appropriate post-emergent herbicides for maize, correctly identifying the weed species and providing specific product recommendations"
+      }
+    },
+    {
+      "test_id": "TC-83",
+      "name": "Spanish name amapola -> Papaver rhoeas",
+      "query": "En mi campo de maiz en Zaragoza tengo amapola. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar la mala hierba Papaver rhoeas, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) and Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo amapola. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar la mala hierba Papaver rhoeas, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) and Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Agent should resolve 'amapola' to Papaver rhoeas. Group 3, high dose, post. Trigo interval=5mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides specific herbicide recommendation with dosages (Monsoon 1.5 L/HA and Fluva 0.3 L/HA)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Papaver rhoeas (scientific name for amapola)"
+          },
+          "3": {
+            "pass": true,
+            "note": "Does not ask for clarification on weed name, directly addresses the specific weed"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete and accurate response matching the query with correct herbicide recommendation, scientific weed identification, and clear application guidance"
+      }
+    },
+    {
+      "test_id": "TC-84",
+      "name": "Spanish name estramonio -> Datura stramonium",
+      "query": "En mi campo de maiz en Navarra tengo estramonio. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar Datura stramonium, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo estramonio. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar Datura stramonium, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?"
+        }
+      ],
+      "expected": "Agent should resolve 'estramonio' to Datura stramonium. Group 3, high dose, post. Trigo interval=5mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides specific herbicide recommendation with doses (Laudis WG and Oizysa)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly references Datura stramonium (estramonio)"
+          },
+          "3": {
+            "pass": true,
+            "note": "Does not ask for clarification on weed name"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive response with correct product identification, appropriate dosage, and direct addressing of the specific weed problem"
+      }
+    },
+    {
+      "test_id": "TC-85",
+      "name": "Crop variation canola -> colza",
+      "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti en post-emergencia. El proximo cultivo sera canola.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Abutilon theophrasti, con colza para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**\n\n¿Desea conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Abutilon theophrasti en post-emergencia. El proximo cultivo sera canola."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Abutilon theophrasti, con colza para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**\n\n¿Desea conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Agent should resolve 'canola' to colza via crop name variations. Colza interval=3mo (Sep-Jun). Very tight interval, many products fail.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided specific herbicide recommendation (Fluva 0.3 L/HA and Oizysa 0.5 L/HA)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Referenced colza as the next crop explicitly"
+          },
+          "3": {
+            "pass": true,
+            "note": "Recognized the crop and provided a recommendation"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete and accurate response addressing weed control in maize with appropriate herbicides for colza rotation"
+      }
+    },
+    {
+      "test_id": "TC-86",
+      "name": "Crop variation soya -> soja",
+      "query": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare en post-emergencia. El proximo cultivo sera soya.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar la mala hierba Polygonum aviculare, con soja para plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Deseas conocer alternativas a este tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare en post-emergencia. El proximo cultivo sera soya."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar la mala hierba Polygonum aviculare, con soja para plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Deseas conocer alternativas a este tratamiento?"
+        }
+      ],
+      "expected": "Agent should resolve 'soya' to soja. Soja interval=9mo (Mar next year). Most products pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided specific herbicide recommendation of Laudis WG and Cubix"
+          },
+          "2": {
+            "pass": true,
+            "note": "Correctly referenced soja as the next crop"
+          },
+          "3": {
+            "pass": true,
+            "note": "Correctly resolved crop name without asking for clarification"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive and accurate response addressing the specific weed control needs in a maize field with soja as the next crop"
+      }
+    },
+    {
+      "test_id": "TC-87",
+      "name": "Crop variation arveja -> guisante",
+      "query": "En mi campo de maiz en Navarra tengo Stellaria media en post-emergencia. El proximo cultivo sera arveja.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Stellaria media, con arveja a plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Oizysa (0.5 L/HA)**, con el requisito agronómico para la plantación del siguiente cultivo: siguiente cultivo ha de ser de primavera.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Le gustaría conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Stellaria media en post-emergencia. El proximo cultivo sera arveja."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Stellaria media, con arveja a plantar en la próxima temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Oizysa (0.5 L/HA)**, con el requisito agronómico para la plantación del siguiente cultivo: siguiente cultivo ha de ser de primavera.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Le gustaría conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Agent should resolve 'arveja' to guisante. Guisante interval=8mo (Feb next year). Most products pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides clear herbicide recommendation with Monsoon and Oizysa"
+          },
+          "2": {
+            "pass": true,
+            "note": "References crop as next season's crop (although keeps original term 'arveja')"
+          },
+          "3": {
+            "pass": true,
+            "note": "Uses original crop term without asking for clarification"
+          }
+        },
+        "score": 4,
+        "explanation": "Strong recommendation with correct products, minor issue with crop name translation"
+      }
+    },
+    {
+      "test_id": "TC-88",
+      "name": "Genus-only weed: Chenopodium -> should resolve",
+      "query": "En mi campo de maiz en Huesca tengo Chenopodium en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Chenopodium album, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Le interesaría conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Chenopodium en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Chenopodium album, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Le interesaría conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Agent should resolve genus 'Chenopodium' to a Chenopodium species (album or opulifolium) via embedding match. Should return a recommendation.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a clear herbicide recommendation for Chenopodium in a maize field"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly references Chenopodium in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "Clearly identifies and recommends treatment for the weed"
+          }
+        },
+        "score": 5,
+        "explanation": "Response fully meets all criteria with a specific, targeted herbicide recommendation for Chenopodium in a maize field, with consideration of the next crop (wheat)"
+      }
+    },
+    {
+      "test_id": "TC-89",
+      "name": "Genus-only weed: Polygonum -> should resolve",
+      "query": "En mi campo de maiz en Zaragoza tengo Polygonum en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "¿A cuál especie de Polygonum se refiere? ¿1: Polygonum convolvulus, 2: Polygonum persicaria, o 3: Polygonum aviculare?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Polygonum en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "¿A cuál especie de Polygonum se refiere? ¿1: Polygonum convolvulus, 2: Polygonum persicaria, o 3: Polygonum aviculare?"
+        }
+      ],
+      "expected": "Agent should resolve genus 'Polygonum' to one of the Polygonum species (aviculare, convolvulus, lapathifolium, persicaria). May ask for clarification or use default match.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Asks for clarification on specific Polygonum species, preparing for potential herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Directly references Polygonum species in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "Recognizes the Polygonum genus and seeks to identify the specific species"
+          }
+        },
+        "score": 4,
+        "explanation": "The chatbot appropriately seeks clarification on the specific Polygonum species to provide an accurate herbicide recommendation for a maize field transitioning to wheat"
+      }
+    },
+    {
+      "test_id": "TC-90",
+      "name": "Very limited efficacy: Equisetum arvense, G3, post (score=1)",
+      "query": "En mi campo de maiz en Navarra tengo Equisetum arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Equisetum arvense, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1,5 L/HA) y Fluva (0,3 L/HA)**\n\nPor favor, tenga en cuenta: El tratamiento tiene una eficacia muy limitada.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Consideraría ajustar el momento de aplicación o el cultivo siguiente para potencialmente desbloquear soluciones más efectivas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Equisetum arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Equisetum arvense, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1,5 L/HA) y Fluva (0,3 L/HA)**\n\nPor favor, tenga en cuenta: El tratamiento tiene una eficacia muy limitada.\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Consideraría ajustar el momento de aplicación o el cultivo siguiente para potencialmente desbloquear soluciones más efectivas?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Rank 1 for Equisetum = Monsoon+Fluva (score=1). Should return recommendation with 'very limited efficacy' warning.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided Monsoon (1,5 L/HA) and Fluva (0,3 L/HA) as a specific herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly stated 'treatment has a very limited efficacy'"
+          },
+          "3": {
+            "pass": true,
+            "note": "Recommendation is specific to Equisetum arvense control"
+          }
+        },
+        "score": 5,
+        "explanation": "Fully correct response meeting all verification criteria with appropriate product recommendation, efficacy warning, and specific weed identification"
+      }
+    },
+    {
+      "test_id": "TC-91",
+      "name": "Very limited efficacy: Cynodon dactylon, G3, post",
+      "query": "En mi campo de maiz en Huesca tengo Cynodon dactylon. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Cynodon dactylon, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Cynodon dactylon. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Cynodon dactylon, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**\n\n¿Desea conocer alternativas a este tratamiento?"
+        }
+      ],
+      "expected": "Group 3, high dose, post. Cynodon dactylon likely has low efficacy scores. Should mention limited efficacy if score <= 3.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided a specific herbicide recommendation for the scenario"
+          },
+          "2": {
+            "pass": true,
+            "note": "Response directly references Cynodon dactylon"
+          }
+        },
+        "score": 3,
+        "explanation": "Recommendation provided, but lacks clear warning about potentially low efficacy against Cynodon dactylon. Products suggested are appropriate for post-emergence treatment in maize, but effectiveness against the specific weed is not explicitly addressed."
+      }
+    },
+    {
+      "test_id": "TC-92",
+      "name": "Two-weed: Chenopodium album + Datura stramonium, G3, post",
+      "query": "En mi campo de maiz en Navarra tengo Chenopodium album y Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar las malas hierbas Chenopodium album y Datura stramonium, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Chenopodium album y Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar las malas hierbas Chenopodium album y Datura stramonium, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Two-weed combo, G3, high dose, post. Rank 1 = Laudis WG+Oizysa (score 5). Trigo interval=5mo. Both Laudis WG and Oizysa have short wait times. Should pass.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Response provides a clear herbicide recommendation"
+          },
+          "2": {
+            "pass": true,
+            "note": "Response specifically mentions both Chenopodium album and Datura stramonium"
+          },
+          "3": {
+            "pass": true,
+            "note": "Laudis WG is prominently included in the primary recommendation"
+          },
+          "4": {
+            "pass": true,
+            "note": "Oizysa is also included in the primary recommendation"
+          }
+        },
+        "score": 5,
+        "explanation": "Recommendation precisely matches expected solution for maize field weeds with correct herbicide combination and application details"
+      }
+    },
+    {
+      "test_id": "TC-93",
+      "name": "Two-weed: Digitaria + Xanthium, G3, post",
+      "query": "En mi campo de maiz en Huesca tengo Digitaria sanguinalis y Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar Digitaria sanguinalis y Xanthium strumarium, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Digitaria sanguinalis y Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar Digitaria sanguinalis y Xanthium strumarium, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Monsoon (1.5 L/HA) y Fluva (0.3 L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer alternativas a esta recomendación?"
+        }
+      ],
+      "expected": "Two-weed combo, G3, high dose, post. Should return a treatment that covers both weeds. Trigo interval=5mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a specific herbicide combination (Monsoon and Fluva) for treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Mentions both Digitaria sanguinalis and Xanthium strumarium in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "No plant-back restriction warning for wheat (trigo)"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive recommendation addressing both weeds with appropriate post-emergence herbicides and no crop rotation concerns"
+      }
+    },
+    {
+      "test_id": "TC-94",
+      "name": "Two-weed: Polygonum aviculare + Sinapis arvensis, G3, post",
+      "query": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare y Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Zaragoza, para controlar Polygonum aviculare y Sinapis arvensis, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare y Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Zaragoza, para controlar Polygonum aviculare y Sinapis arvensis, con trigo como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Two-weed combo, G3, high dose, post. Should return a treatment covering both weeds.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides specific herbicide recommendation with dosages (Laudis WG 0.5 KG/HA and Monsoon 1.5L/HA)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Recommendation addresses both Polygonum aviculare and Sinapis arvensis weeds"
+          },
+          "3": {
+            "pass": true,
+            "note": "No plant-back restriction warning for wheat (trigo) mentioned"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive recommendation covering both weeds with appropriate herbicide combination and dosages, suitable for post-emergence application in maize with wheat as the next crop"
+      }
+    },
+    {
+      "test_id": "TC-95",
+      "name": "Location Asturias -> Group 1",
+      "query": "En mi campo de maiz en Asturias tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Asturias, para controlar la mala hierba Sinapis arvensis, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Asturias, para controlar la mala hierba Sinapis arvensis, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento en post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Asturias = Group 1, high dose, post. Should return standard recommendation for Group 1.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Response contains a specific herbicide recommendation (Laudis WG and Monsoon)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Asturias as the location"
+          },
+          "3": {
+            "pass": true,
+            "note": "References Sinapis arvensis (mostaza) in the context of the recommendation"
+          }
+        },
+        "score": 4,
+        "explanation": "The response provides a valid herbicide recommendation for Sinapis arvensis in a maize field in Asturias, with correct product selection and application guidance. Minor potential improvement could be providing more detailed application details."
+      }
+    },
+    {
+      "test_id": "TC-97",
+      "name": "Location Murcia -> Group 3",
+      "query": "En mi campo de maiz en Murcia tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Murcia, para controlar la mala hierba Portulaca oleracea, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) and Oizysa (0.5 L/HA)**\n\nAdvertencia: Aplique Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Murcia tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Murcia, para controlar la mala hierba Portulaca oleracea, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Monsoon (1.5 L/HA) and Oizysa (0.5 L/HA)**\n\nAdvertencia: Aplique Monsoon solo antes de que el maíz alcance la etapa de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Murcia = Group 3, high dose, post. Standard recommendation.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Monsoon and Oizysa as herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Murcia in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "References Portulaca oleracea in the context of weed control"
+          }
+        },
+        "score": 5,
+        "explanation": "Complete response with correct herbicide recommendation for Portulaca oleracea in Murcia, following expected treatment guidelines"
+      }
+    },
+    {
+      "test_id": "TC-98",
+      "name": "Location Burgos -> Group 2, pre -> low dose",
+      "query": "En mi campo de maiz en Burgos tengo Polygonum aviculare. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Burgos, para controlar la mala hierba Polygonum aviculare, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Adengo (0,33 L/HA)**\n\nAdvertencia: Si se ha aplicado Adengo en la última temporada, no puede aplicar este tratamiento para esta temporada.\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Burgos tengo Polygonum aviculare. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Burgos, para controlar la mala hierba Polygonum aviculare, con trigo a plantar en la siguiente temporada, la recomendación de tratamiento en pre-emergencia es:\n\n**Adengo (0,33 L/HA)**\n\nAdvertencia: Si se ha aplicado Adengo en la última temporada, no puede aplicar este tratamiento para esta temporada.\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Burgos = Group 2, pre-emergence -> low dose. No stage question asked for pre-emergence. Trigo interval=5mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Adengo at 0.33 L/HA as a pre-emergence herbicide"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Burgos in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "No questions asked about weed development stage for pre-emergence"
+          }
+        },
+        "score": 5,
+        "explanation": "Perfect response matching all verification criteria for a pre-emergence herbicide recommendation in Burgos for Polygonum aviculare in a maize field with wheat as the next crop"
+      }
+    },
+    {
+      "test_id": "TC-101",
+      "name": "Restriction text for patata with long-wait products",
+      "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera patata.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Abutilon Theophrasti, con patata para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera patata."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Abutilon Theophrasti, con patata para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Cubix (2L/HA)**\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "G3, high dose, post. Patata interval=9mo (Mar next year). Rank 1 = Laudis WG + Monsoon. Monsoon wait for patata=12 -> FAILS (9<12). Primary should skip to treatment without Monsoon. Should mention restriction/exclusion.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided herbicide recommendation of Laudis WG and Cubix"
+          },
+          "2": {
+            "pass": true,
+            "note": "Did not include Monsoon, avoiding the 12-month waiting period issue"
+          },
+          "3": {
+            "pass": true,
+            "note": "Referenced patata as next crop in context"
+          }
+        },
+        "score": 4,
+        "explanation": "Mostly correct recommendation with appropriate product selection, avoiding Monsoon due to crop rotation restrictions"
+      }
+    },
+    {
+      "test_id": "TC-102",
+      "name": "Colza (3mo interval) - many products fail, untested weed",
+      "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera colza.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Digitaria sanguinalis, con colza como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**\n\nPor favor tenga en cuenta: El tratamiento tiene una eficacia limitada.\n\nLos siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Laudis WG (0.5 KG/HA) (4 meses), Monsoon (1.5 L/HA) y Fluva (0.3 L/HA) (12 meses), Laudis WG (0.5KG/HA) y Fluva (0.3L/HA) (4 meses), Capreno (0.29 L/HA) y Fluva (0.3 L/HA) (12 meses).\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera colza."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Digitaria sanguinalis, con colza como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**\n\nPor favor tenga en cuenta: El tratamiento tiene una eficacia limitada.\n\nLos siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Laudis WG (0.5 KG/HA) (4 meses), Monsoon (1.5 L/HA) y Fluva (0.3 L/HA) (12 meses), Laudis WG (0.5KG/HA) y Fluva (0.3L/HA) (4 meses), Capreno (0.29 L/HA) y Fluva (0.3 L/HA) (12 meses).\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "G3, high dose, post. Colza interval=3mo (Sep-Jun). Laudis WG wait=4 -> FAILS (3<4). Monsoon=12 -> FAILS. Only products with 1mo wait pass: Cubix, Fluva, Oizysa, Dimetenamida, Fluoxipir.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommended Fluva and Oizysa with appropriate dosage"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentioned plant-back restrictions for Laudis WG, Monsoon, and other treatments"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentioned Digitaria sanguinalis in the context of herbicide recommendation"
+          }
+        },
+        "score": 4,
+        "explanation": "Mostly correct recommendation with detailed plant-back restriction information, but limited efficacy noted"
+      }
+    },
+    {
+      "test_id": "TC-103",
+      "name": "Brocoli (4mo interval), G1, Monsoon/Adengo/Capreno fail",
+      "query": "En mi campo de maiz en Galicia tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli.",
+      "agent_response": "Para controlar Sinapis arvensis en tu campo de maíz en Galicia, con brócoli como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Fluva (0,3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Deseas conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Galicia tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli."
+        },
+        {
+          "role": "agent",
+          "text": "Para controlar Sinapis arvensis en tu campo de maíz en Galicia, con brócoli como cultivo siguiente, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0,5KG/HA) y Fluva (0,3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Deseas conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "G1, high dose, post. Brocoli interval=4mo (Oct-Jun). Monsoon wait=6 -> FAILS. Adengo=6 -> FAILS. Capreno=6 -> FAILS. Treatments with only short-wait products should become primary.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Laudis WG and Fluva as herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentions Sinapis arvensis (mostaza) control"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions brócoli as the next crop"
+          }
+        },
+        "score": 2,
+        "explanation": "Fails to meet waiting period requirements for next crop. Recommends products with unsuitable waiting periods for brocoli. Needs alternative treatments with shorter waiting periods."
+      }
+    },
+    {
+      "test_id": "TC-104",
+      "name": "Col (4mo interval), Diflufenican fails (wait=7)",
+      "query": "En mi campo de maiz en Cantabria tengo Galinsoga parviflora. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col.",
+      "agent_response": "Para campos de maíz en Cantabria, para controlar Galinsoga parviflora, con col para ser plantada en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Deseas conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Cantabria tengo Galinsoga parviflora. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Cantabria, para controlar Galinsoga parviflora, con col para ser plantada en la siguiente temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Fluva (0.3L/HA)**, con el requisito agronómico para la siembra del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Deseas conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "G1, high dose, post. Col interval=4mo (Oct-Jun). Diflufenican wait=7 -> FAILS. Monsoon wait probably >4 -> FAILS. Primary should avoid these products.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Laudis WG and Fluva as herbicide treatment"
+          },
+          "2": {
+            "pass": true,
+            "note": "Mentions Galinsoga parviflora specifically"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions col as next crop"
+          }
+        },
+        "score": 2,
+        "explanation": "Recommendation fails due to problematic product selection. Diflufenican and potential waiting periods make these products unsuitable for the crop rotation, risking col crop damage."
+      }
+    },
+    {
+      "test_id": "TC-105",
+      "name": "Palmeri G3 LOW + colza (very tight, Diflufenican 24mo fails)",
+      "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera colza.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Amaranthus palmeri, con colza a plantar en la próxima temporada, en casos de baja presión de malas hierbas, la recomendación es aplicaciones en pre-emergencia de Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Un único tratamiento en post-emergencia no es suficiente, incluso bajo presión moderada.\n\nAviso importante: No puede plantar colza en la próxima temporada debido a las restricciones de residuos de herbicida, por favor considere planificar un cultivo diferente en la próxima rotación.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera colza."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Amaranthus palmeri, con colza a plantar en la próxima temporada, en casos de baja presión de malas hierbas, la recomendación es aplicaciones en pre-emergencia de Spade Flexx (0.33 L/HA) junto con Dimetenamida 72% (1.4 L/HA) + Diflufenican 50% (0.24 KG/HA). Un único tratamiento en post-emergencia no es suficiente, incluso bajo presión moderada.\n\nAviso importante: No puede plantar colza en la próxima temporada debido a las restricciones de residuos de herbicida, por favor considere planificar un cultivo diferente en la próxima rotación."
+        }
+      ],
+      "expected": "Hardcoded palmeri G3 LOW path: pre-only (Spade Flexx + Dimetenamida 72% + Diflufenican 50%). Colza interval=3mo. Diflufenican wait=7 -> FAILS (3<7). Should warn about plant-back issue.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Explicitly mentions Amaranthus palmeri"
+          },
+          "2": {
+            "pass": true,
+            "note": "Warns about plant-back restrictions for colza"
+          },
+          "3": {
+            "pass": true,
+            "note": "Mentions both Spade Flexx and Diflufenican in treatment"
+          }
+        },
+        "score": 4,
+        "explanation": "Mostly correct recommendation with appropriate warning about crop rotation, but potential residue timing issue with Diflufenican"
+      }
+    },
+    {
+      "test_id": "TC-106",
+      "name": "Cyperus G1 HIGH + colza (tight interval)",
+      "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza.",
+      "agent_response": "¿La aplicación del herbicida será en pre-emergencia o post-emergencia?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza."
+        },
+        {
+          "role": "agent",
+          "text": "¿La aplicación del herbicida será en pre-emergencia o post-emergencia?"
+        }
+      ],
+      "expected": "Hardcoded Cyperus G1 HIGH path: pre+post consecutive. Products: Spade Flexx, Fluva, Monsoon, Dimetenamida 72%. Colza interval=3mo. Monsoon wait=12 -> FAILS. Should mention plant-back issue.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "Response does not mention Cyperus rotundus or related terms"
+          },
+          "2": {
+            "pass": false,
+            "note": "No mention of plant-back restrictions"
+          },
+          "3": {
+            "pass": false,
+            "note": "No mention of Monsoon in the response"
+          }
+        },
+        "score": 2,
+        "explanation": "The response is a clarifying question that does not address the specific herbicide needs for Cyperus rotundus or provide any substantive recommendations"
+      }
+    },
+    {
+      "test_id": "TC-107",
+      "name": "Setaria G1 HIGH + colza (Monsoon fails wait)",
+      "query": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza.",
+      "agent_response": "¿Quieres aplicar el herbicida en pre-emergencia o post-emergencia del maíz?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza."
+        },
+        {
+          "role": "agent",
+          "text": "¿Quieres aplicar el herbicida en pre-emergencia o post-emergencia del maíz?"
+        }
+      ],
+      "expected": "Hardcoded Setaria G1 HIGH: pre+post consecutive. Products: Spade Flexx, Cubix, Monsoon, Dimetenamida 72%. Colza interval=3mo. Monsoon wait=12 -> FAILS. Spade Flexx wait=4 -> FAILS.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No mention of Setaria viridis or almorejo in the response"
+          },
+          "2": {
+            "pass": false,
+            "note": "No discussion of plant-back restrictions for colza"
+          },
+          "3": {
+            "pass": false,
+            "note": "No herbicide products suggested in the response"
+          }
+        },
+        "score": 1,
+        "explanation": "The response is a clarifying question that does not provide any substantive herbicide recommendation for Setaria viridis control or address crop rotation constraints"
+      }
+    },
+    {
+      "test_id": "TC-108",
+      "name": "Misspelled weed: Dattura stramonuim -> Datura stramonium",
+      "query": "En mi campo de maiz en Navarra tengo Dattura stramonuim. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Datura stramonium, con trigo como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer soluciones alternativas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Dattura stramonuim. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Datura stramonium, con trigo como cultivo de la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Oizysa (0.5L/HA)**\n\n¿Desea conocer soluciones alternativas?"
+        }
+      ],
+      "expected": "Agent should resolve misspelled 'Dattura stramonuim' to Datura stramonium via embedding similarity. Should return a recommendation.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provides a specific herbicide recommendation with dosages (Laudis WG 0.5KG/HA and Oizysa 0.5L/HA)"
+          },
+          "2": {
+            "pass": true,
+            "note": "Correctly identifies Datura stramonium in the response"
+          },
+          "3": {
+            "pass": true,
+            "note": "Acknowledges the weed and provides a clear treatment recommendation"
+          }
+        },
+        "score": 5,
+        "explanation": "Excellent response that correctly identifies the weed, provides appropriate post-emergence herbicide treatment for maize, and considers the next crop (wheat)"
+      }
+    },
+    {
+      "test_id": "TC-109",
+      "name": "Misspelled weed: Echinocloa crus gali -> Echinochloa",
+      "query": "En mi campo de maiz en Huesca tengo Echinocloa crus gali. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+      "agent_response": "Para campos de maíz en Huesca, para controlar la mala hierba Echinochloa crus-galli, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Huesca tengo Echinocloa crus gali. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Huesca, para controlar la mala hierba Echinochloa crus-galli, con trigo a plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Laudis WG (0.5KG/HA) y Monsoon (1.5L/HA)**\n\nAdvertencia: Aplicar Monsoon solo antes de que el maíz alcance el estado de 6 hojas.\n\n¿Desea conocer tratamientos alternativos?"
+        }
+      ],
+      "expected": "Agent should resolve misspelled 'Echinocloa crus gali' to Echinochloa crus-galli. Should return a recommendation.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommendation includes Laudis WG and Monsoon with specific application rates"
+          },
+          "2": {
+            "pass": true,
+            "note": "Response correctly identifies and references Echinochloa crus-galli"
+          },
+          "3": {
+            "pass": true,
+            "note": "Clearly recognizes the weed and provides a specific treatment recommendation"
+          }
+        },
+        "score": 5,
+        "explanation": "Comprehensive and accurate response addressing the specific weed and crop context with appropriate herbicide recommendations"
+      }
+    },
+    {
+      "test_id": "TC-110",
+      "name": "English crop name: potato -> patata, garlic -> ajo",
+      "query": "En mi campo de maiz en Navarra tengo Sinapis arvensis en post-emergencia. El proximo cultivo sera garlic.",
+      "agent_response": "Para campos de maíz en Navarra, para controlar la mala hierba Sinapis arvensis, con ajo para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**, con el requisito agronómico para la plantación del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Le gustaría conocer alternativas de tratamiento?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Navarra tengo Sinapis arvensis en post-emergencia. El proximo cultivo sera garlic."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Navarra, para controlar la mala hierba Sinapis arvensis, con ajo para plantar en la próxima temporada, la recomendación de tratamiento post-emergencia es:\n\n**Fluva (0.3 L/HA) y Oizysa (0.5 L/HA)**, con el requisito agronómico para la plantación del siguiente cultivo: Labor vertedera profunda, especialmente en siembras otoñales y cuando la pluviometría haya sido inferior a la media de la zona.\n\n¿Le gustaría conocer alternativas de tratamiento?"
+        }
+      ],
+      "expected": "Agent should resolve English crop name 'garlic' to ajo. Ajo interval=4mo (Oct-Jun). Tight interval, many products fail.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Provided herbicide recommendation (Fluva and Oizysa) with plant-back advice"
+          },
+          "2": {
+            "pass": true,
+            "note": "Explicitly mentioned ajo (garlic) as the next crop"
+          },
+          "3": {
+            "pass": true,
+            "note": "Did not indicate crop was unknown"
+          }
+        },
+        "score": 4,
+        "explanation": "Good recommendation with appropriate herbicides, recognized crop, and provided plant-back guidance. Slight deduction due to not explicitly highlighting the tight crop rotation interval for garlic."
+      }
+    }
+  ],
+  "summary": {
+    "total": 45,
+    "avg_score": 4.2,
+    "passed": 36,
+    "failed": 9
+  },
+  "note": "Removed 5 test cases (TC-68, TC-80, TC-96, TC-99, TC-100) due to corrupted follow-up pattern: agent gave correct answer in turn 1 but follow_up_answers triggered an unnecessary second turn, overwriting the valid response."
+}

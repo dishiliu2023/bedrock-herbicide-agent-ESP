@@ -1,0 +1,54 @@
+{
+  "run_timestamp": "2026-03-28T16:50:56.024445+00:00",
+  "agent_id": "GC6LBGNWES",
+  "agent_alias_id": "AMJSCHXS0M",
+  "eval_model": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+  "total_time_seconds": 27.6,
+  "results": [
+    {
+      "test_id": "TC-74",
+      "name": "Standard weed, G1, post, algodon (10mo interval)",
+      "query": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon.",
+      "agent_response": "Para campos de maíz en Asturias, para controlar la mala hierba Abutilon Theophrasti, con algodón como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Oizysa (0,5 L/HA)**\n\nAtención: El tratamiento tiene una eficacia muy limitada.\n\nLos siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Laudis WG (0,5KG/HA) y Monsoon (1,5L/HA) (24 meses), Monsoon (1,5 L/HA) y Fluva (0,3 L/HA) (24 meses), Laudis WG (0,5KG/HA) y Fluva (0,3L/HA) (24 meses), Monsoon (1,5 L/HA) y Oizysa (0,5 L/HA) (11 meses), Laudis WG (0,5KG/HA) y Cubix (2L/HA) (24 meses), Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA) (24 meses), Capreno (0,29 L/HA) y Fluva (0,3 L/HA) (24 meses), Fluva (0,3 L/HA) y Oizysa (0,5 L/HA) (24 meses), Monsoon (1,5 L/HA) (11 meses), Laudis WG (0,5 KG/HA) (24 meses), Fluva (0,3 L/HA) (24 meses).\n\n¿Consideraría ajustar el momento de aplicación o el cultivo siguiente para desbloquear soluciones potencialmente más efectivas?",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon."
+        },
+        {
+          "role": "agent",
+          "text": "Para campos de maíz en Asturias, para controlar la mala hierba Abutilon Theophrasti, con algodón como cultivo siguiente, la recomendación de tratamiento en post-emergencia es:\n\n**Oizysa (0,5 L/HA)**\n\nAtención: El tratamiento tiene una eficacia muy limitada.\n\nLos siguientes tratamientos no se recomiendan porque no cumplen con el intervalo de plantación requerido por el cultivo siguiente especificado: Laudis WG (0,5KG/HA) y Monsoon (1,5L/HA) (24 meses), Monsoon (1,5 L/HA) y Fluva (0,3 L/HA) (24 meses), Laudis WG (0,5KG/HA) y Fluva (0,3L/HA) (24 meses), Monsoon (1,5 L/HA) y Oizysa (0,5 L/HA) (11 meses), Laudis WG (0,5KG/HA) y Cubix (2L/HA) (24 meses), Laudis WG (0,5KG/HA) y Oizysa (0,5L/HA) (24 meses), Capreno (0,29 L/HA) y Fluva (0,3 L/HA) (24 meses), Fluva (0,3 L/HA) y Oizysa (0,5 L/HA) (24 meses), Monsoon (1,5 L/HA) (11 meses), Laudis WG (0,5 KG/HA) (24 meses), Fluva (0,3 L/HA) (24 meses).\n\n¿Consideraría ajustar el momento de aplicación o el cultivo siguiente para desbloquear soluciones potencialmente más efectivas?"
+        }
+      ],
+      "expected": "Group 1, high dose, post. Algodon interval=10mo (Apr next year). All products should easily pass at 10mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": true,
+            "note": "Recommends Oizysa with dosage"
+          },
+          "2": {
+            "pass": false,
+            "note": "Laudis WG not recommended due to 24-month interval"
+          },
+          "3": {
+            "pass": false,
+            "note": "Monsoon not recommended due to 24-month interval"
+          },
+          "4": {
+            "pass": false,
+            "note": "Contains plant-back restriction warnings"
+          }
+        },
+        "score": 2,
+        "explanation": "Response provides a recommendation but fails key criteria by overly restricting effective herbicides due to incorrect interval assumptions"
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "avg_score": 2.0,
+    "passed": 0,
+    "failed": 1
+  }
+}

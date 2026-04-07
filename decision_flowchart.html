@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herbicide Recommendation Decision Flowchart</title>
+<style>
+  :root {
+    --bg: #f6f8fa;
+    --card-bg: #ffffff;
+    --border: #d1d9e0;
+    --text: #1f2328;
+    --muted: #656d76;
+    --accent: #0969da;
+    --accent2: #1a7f37;
+    --accent3: #8250df;
+    --accent4: #bc4c00;
+    --accent5: #bf3989;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #dbeafe 0%, #f0f6ff 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 2rem 1.5rem;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  header p { color: var(--muted); font-size: 0.95rem; }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    padding: 0 1rem;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+
+  section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-header:hover { background: rgba(9,105,218,0.04); }
+  .section-header .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.55rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge-blue { background: rgba(9,105,218,0.1); color: var(--accent); }
+  .badge-green { background: rgba(26,127,55,0.1); color: var(--accent2); }
+  .badge-purple { background: rgba(130,80,223,0.1); color: var(--accent3); }
+  .badge-orange { background: rgba(188,76,0,0.1); color: var(--accent4); }
+  .badge-pink { background: rgba(191,57,137,0.1); color: var(--accent5); }
+
+  .section-header h2 { font-size: 1.1rem; font-weight: 600; flex: 1; }
+  .section-header .chevron {
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: transform 0.25s;
+  }
+  .section-header.collapsed .chevron { transform: rotate(-90deg); }
+
+  .section-desc {
+    padding: 0.6rem 1.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(9,105,218,0.03);
+  }
+
+  .diagram-wrapper {
+    padding: 1.5rem;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    min-height: 200px;
+  }
+  .diagram-wrapper.collapsed-body { display: none; }
+
+  .diagram-wrapper .mermaid {
+    min-width: 600px;
+  }
+
+  /* Override mermaid theme edges */
+  .mermaid .flowchart-link { stroke: #8b949e !important; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Zoom controls */
+  .zoom-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0.5rem 1.5rem 0;
+  }
+  .zoom-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .zoom-btn:hover { color: var(--text); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Herbicide Recommendation Engine</h1>
+  <p>Decision flowchart for the Spanish corn herbicide Lambda function</p>
+</header>
+
+<nav id="nav">
+  <a href="#sec-entry" class="active">1. Entry & Validation</a>
+  <a href="#sec-dose">2. Dose Logic</a>
+  <a href="#sec-names">3. Name Resolution</a>
+  <a href="#sec-branch">4. Treatment Branches</a>
+  <a href="#sec-ranking">5. Ranking & Response</a>
+  <a href="#sec-wait">6. Wait-Time Check</a>
+</nav>
+
+<div class="container">
+
+<!-- ========== 1. Entry & Validation ========== -->
+<section id="sec-entry">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-blue">Step 1</span>
+    <h2>Entry Point & Input Validation Cascade</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    The Lambda handler parses the Bedrock Agent event, determines timing, builds the taboo list,
+    then runs 9 sequential validations &mdash; returning an orchestration message to prompt the user for each missing input.
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    START([Lambda Handler Invoked]):::startNode --> PARSE["Parse parameters from\nBedrock Agent event"]
+    PARSE --> TIMING{"timing contains\n'post' or 'pre'?"}
+    TIMING -->|"contains 'post'"| SET_POST["timing = post-emergence"]
+    TIMING -->|"contains 'pre'"| SET_PRE["timing = pre-emergence"]
+    TIMING -->|neither| ASK_TIMING[/"Ask user:\npre or post-emergence?"/]:::askNode
+
+    SET_POST --> PARSE2["Parse follow_up_treatment,\nadengo_applied, taboo_list,\npreviously_applied_products"]
+    SET_PRE --> PARSE2
+
+    PARSE2 --> TABOO["Extend taboo list with\npreviously applied products"]
+    TABOO --> ADENGO{"Adengo in\npreviously applied?"}
+    ADENGO -->|Yes| ADD_TABOO["Add Spade Flexx &\nMonsoon to taboo"]
+    ADENGO -->|No| V1
+    ADD_TABOO --> V1
+
+    V1{"follow_up but\nno products listed?"}
+    V1 -->|Yes| A1[/"Ask: which products\nwere applied?"/]:::askNode
+    V1 -->|No| V2
+
+    V2{"location\nmissing?"}
+    V2 -->|Yes| A2[/"Ask: what province?"/]:::askNode
+    V2 -->|No| V3
+
+    V3{"location_group_num\nmissing?"}
+    V3 -->|Yes| A3[/"Ask LLM to classify\nlocation into group"/]:::askNode
+    V3 -->|No| V4
+
+    V4{"next_crop\nmissing?"}
+    V4 -->|Yes| A4[/"Ask: what crop next?"/]:::askNode
+    V4 -->|No| V5
+
+    V5{"Group 2 + post\n+ stage not set?"}
+    V5 -->|Yes| A5[/"Ask: < 3 leaves\nor >= 3 leaves?"/]:::askNode
+    V5 -->|No| V6
+
+    V6{"A. palmeri +\nGroup 3 +\npressure not set?"}
+    V6 -->|Yes| A6[/"Ask: high or\nlow pressure?"/]:::askNode
+    V6 -->|No| V7
+
+    V7{"Not palmeri +\nGroup 3 + pre +\nsoil not set?"}
+    V7 -->|Yes| A7[/"Ask: sandy or\nnot sandy?"/]:::askNode
+    V7 -->|No| V8
+
+    V8{"Setaria +\nGroup 1 +\npressure not set?"}
+    V8 -->|Yes| A8[/"Ask: high or\nlow pressure?"/]:::askNode
+    V8 -->|No| V9
+
+    V9{"Cyperus +\nGroup 1 +\npressure not set?"}
+    V9 -->|Yes| A9[/"Ask: high or\nlow pressure?"/]:::askNode
+    V9 -->|No| DONE(["All validated\nProceed to Dose Logic"]):::doneNode
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef askNode fill:#8250df,stroke:#6639ba,color:#fff
+    classDef doneNode fill:#1a7f37,stroke:#116329,color:#fff
+    </div>
+  </div>
+</section>
+
+<!-- ========== 2. Dose Determination ========== -->
+<section id="sec-dose">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-green">Step 2</span>
+    <h2>Dose Level Determination</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    Three possible dose levels: <strong>low</strong> (Group 2 pre-emergence or early post), <strong>medium</strong> (Group 3 non-palmeri pre-emergence on sandy soil), <strong>high</strong> (everything else).
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    DOSE(["Determine Dose Level"]):::startNode --> D1{"Group 2 AND\npre-emergence?"}
+    D1 -->|Yes| LOW["dose = LOW"]:::lowNode
+    D1 -->|No| D2{"Group 2 AND\nstage = less than\n3 leaves?"}
+    D2 -->|Yes| LOW
+    D2 -->|No| D3{"Group 3 AND\nNOT A. palmeri AND\npre-emergence AND\nsandy soil?"}
+    D3 -->|Yes| MED["dose = MEDIUM"]:::medNode
+    D3 -->|No| HIGH["dose = HIGH"]:::highNode
+
+    LOW --> NEXT(["Proceed to Name Resolution"]):::doneNode
+    MED --> NEXT
+    HIGH --> NEXT
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef lowNode fill:#1a7f37,stroke:#116329,color:#fff
+    classDef medNode fill:#bc4c00,stroke:#953800,color:#fff
+    classDef highNode fill:#cf222e,stroke:#a40e26,color:#fff
+    classDef doneNode fill:#0969da,stroke:#0550ae,color:#fff
+    </div>
+  </div>
+</section>
+
+<!-- ========== 3. Name Resolution ========== -->
+<section id="sec-names">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-purple">Step 3</span>
+    <h2>Crop & Weed Name Resolution (Embeddings)</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    User-provided crop and weed names are embedded via Amazon Titan Embed Text v2, then matched against pre-computed canonical embeddings using cosine similarity (threshold 0.6). Unmatched weeds trigger a "Did you mean?" suggestion with up to 3 candidates.
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    R(["Name Resolution"]):::startNode --> CE["Embed next_crop\nvia Titan Embed v2"]
+    CE --> CM["Cosine similarity vs\ncanonical crop embeddings"]
+    CM --> CS{"Best score >= 0.6?"}
+    CS -->|No| CERR[/"Return: crop not\nin database"/]:::errNode
+    CS -->|Yes| CMAP["Map through\nCROP_VAR_TO_STANDARD"]
+    CMAP --> CV{"Standardized crop\nin CROP_SET?"}
+    CV -->|No| CERR2[/"Return: crop not\nin supported list"/]:::errNode
+    CV -->|Yes| WR
+
+    WR["Resolve Weed 1"] --> WE["Embed weed_1 text"]
+    WE --> WM["Top-3 matches\n(floor >= 0.15)"]
+    WM --> WA{"Any matches?"}
+    WA -->|No| WERR[/"Return: weed not found,\nno similar matches"/]:::errNode
+    WA -->|Yes| WS{"Best score\n>= 0.6?"}
+    WS -->|No| WSUG[/"Return: Did you mean\n1) X  2) Y  3) Z ?"/]:::askNode
+    WS -->|Yes| WOK["Map via weed_dict\nto Latin name"]
+
+    WOK --> W2{"2nd weed\nprovided?"}
+    W2 -->|No| DONE(["Proceed to\nTreatment Branch"]):::doneNode
+    W2 -->|Yes| W2R["Resolve Weed 2\n(same process)"]
+    W2R --> DONE
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef errNode fill:#cf222e,stroke:#a40e26,color:#fff
+    classDef askNode fill:#8250df,stroke:#6639ba,color:#fff
+    classDef doneNode fill:#1a7f37,stroke:#116329,color:#fff
+    </div>
+  </div>
+</section>
+
+<!-- ========== 4. Main Treatment Branches ========== -->
+<section id="sec-branch">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-orange">Step 4</span>
+    <h2>Main Treatment Branches (A / B / C / D)</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    Four mutually exclusive paths based on location group and weed species. Path A uses the herbicide lookup table; Paths B, C, D use hardcoded consecutive treatment schemes for special weed scenarios.
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    ENTRY(["Select Treatment Path"]):::startNode --> G1{"Location Group?"}
+
+    G1 -->|"Group 2"| PA_G2["PATH A\nStandard Table Lookup"]:::pathA
+
+    G1 -->|"Group 3"| G3W{"Weed is\nA. palmeri?"}
+    G3W -->|Yes| PB["PATH B\nA. palmeri Hardcoded"]:::pathB
+    G3W -->|No| PA_G3["PATH A\nStandard Table Lookup"]:::pathA
+
+    G1 -->|"Group 1"| G1W{"Weed species?"}
+    G1W -->|"Setaria\n(high pressure)"| PD["PATH D\nSetaria Hardcoded"]:::pathD
+    G1W -->|"Cyperus\n(any pressure)"| PC["PATH C\nCyperus Hardcoded"]:::pathC
+    G1W -->|"Setaria low\nor other weeds"| PA_G1["PATH A\nStandard Table Lookup"]:::pathA
+
+    PA_G1 --> PA_DETAIL
+    PA_G2 --> PA_DETAIL
+    PA_G3 --> PA_DETAIL
+
+    subgraph PA_DETAIL ["Path A: Table Lookup Detail"]
+        direction TB
+        F1["Filter herbicide_df:\nweed combo + timing + dose\nSort by Rank"] --> LOOP["Loop candidates"]
+        LOOP --> CHK1{"Adengo applied AND\ntreatment has Adengo/\nSpade Flexx/Monsoon?"}
+        CHK1 -->|Yes| SKIP["Skip"]:::skipNode
+        CHK1 -->|No| CHK2{"Any product\nin taboo list?"}
+        CHK2 -->|Yes| SKIP
+        CHK2 -->|No| WT["Check wait times\nvs planting interval"]
+        WT --> WTC{"All wait times\nOK?"}
+        WTC -->|Yes| VALID["valid_candidates"]:::validNode
+        WTC -->|No| INVALID["invalid_candidates"]:::invalidNode
+        SKIP --> LOOP
+        VALID --> LOOP
+        INVALID --> LOOP
+    end
+
+    subgraph PB_DETAIL ["Path B: A. palmeri (Group 3)"]
+        direction TB
+        BPR{"Weed\npressure?"}
+        BPR -->|High| BCON["Consecutive:\nPRE: Spade Flexx + Dimetenamida\n+ Diflufenican\nPOST: Fluva + Oizysa"]:::rxNode
+        BPR -->|Low| BPRE["Pre only:\nSpade Flexx + Dimetenamida\n+ Diflufenican"]:::rxNode
+    end
+
+    subgraph PC_DETAIL ["Path C: Cyperus (Group 1)"]
+        direction TB
+        CPR{"Weed\npressure?"}
+        CPR -->|High| CCON["Consecutive:\nPRE: Spade Flexx + Dimetenamida\nPOST: Monsoon + Fluva"]:::rxNode
+        CPR -->|"Low + pre"| CPRE["Spade Flexx\n+ Fluva"]:::rxNode
+        CPR -->|"Low + post"| CPOST["Monsoon\n+ Fluva"]:::rxNode
+    end
+
+    subgraph PD_DETAIL ["Path D: Setaria (Group 1, high pressure)"]
+        direction TB
+        DCON["Consecutive:\nPRE: Spade Flexx + Dimetenamida\nPOST: Monsoon + Cubix\n(monitor early)"]:::rxNode
+    end
+
+    PB --> PB_DETAIL
+    PC --> PC_DETAIL
+    PD --> PD_DETAIL
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef pathA fill:#1a7f37,stroke:#116329,color:#fff
+    classDef pathB fill:#cf222e,stroke:#a40e26,color:#fff
+    classDef pathC fill:#bc4c00,stroke:#953800,color:#fff
+    classDef pathD fill:#8250df,stroke:#6639ba,color:#fff
+    classDef skipNode fill:#656d76,stroke:#4d545c,color:#fff
+    classDef validNode fill:#1a7f37,stroke:#116329,color:#fff
+    classDef invalidNode fill:#cf222e,stroke:#a40e26,color:#fff
+    classDef rxNode fill:#0969da,stroke:#0550ae,color:#fff
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5. Ranking & Response ========== -->
+<section id="sec-ranking">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-pink">Step 5</span>
+    <h2>Path A: Candidate Ranking & Response Building</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    Valid and invalid candidates are filtered by efficacy score. The top valid candidate becomes the primary recommendation; up to 2 alternatives are appended. If no valid candidates exist, invalid ones are returned with explanations.
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    F(["After Candidate Loop"]):::startNode --> F1["valid_candidates:\nkeep row 0 always +\nrows with lower_score >= 3"]
+    F1 --> F2["invalid_candidates:\nkeep only lower_score > 3"]
+    F2 --> VC{"valid_candidates\nempty?"}
+
+    VC -->|Yes| NV{"invalid_candidates\nexist?"}
+    NV -->|No| NONE[/"Return: no applicable\ntreatments found"/]:::errNode
+    NV -->|Yes| NVREASON[/"Return: no treatments meet\nplant-back interval\n+ list excluded with\nrequired wait months"/]:::warnNode
+
+    VC -->|No| BUILD["Primary = rank 1 treatment"]
+    BUILD --> EFF1{"top lower_score\n= 3?"}
+    EFF1 -->|Yes| W1["Warn: limited efficacy\nSuggest adjust timing/crop"]:::warnNode
+    EFF1 -->|No| EFF2{"top lower_score\n< 3?"}
+    EFF2 -->|Yes| W2["Warn: very limited\nefficacy"]:::warnNode
+    EFF2 -->|No| ALT1
+
+    W1 --> ALT1
+    W2 --> ALT1
+
+    ALT1{"> 1 valid\ncandidate?"}
+    ALT1 -->|Yes| A1["Add 1st alternative\nwith efficacy comparison"]
+    ALT1 -->|No| RESP
+
+    A1 --> ALT2{"> 2 valid\ncandidates?"}
+    ALT2 -->|Yes| A2["Add 2nd alternative\nwith efficacy comparison"]
+    ALT2 -->|No| RESP
+
+    A2 --> RESP(["Return Bedrock response\n+ session attributes"]):::doneNode
+    RESP
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef errNode fill:#cf222e,stroke:#a40e26,color:#fff
+    classDef warnNode fill:#bc4c00,stroke:#953800,color:#fff
+    classDef doneNode fill:#1a7f37,stroke:#116329,color:#fff
+    </div>
+  </div>
+</section>
+
+<!-- ========== 6. Wait Time ========== -->
+<section id="sec-wait">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="badge badge-blue">Step 6</span>
+    <h2>Paths B/C/D: Wait-Time Validation & Final Response</h2>
+    <span class="chevron">&#9662;</span>
+  </div>
+  <div class="section-desc">
+    For hardcoded treatment paths, each product's plant-back interval is checked against the next crop's earliest planting date. Monsoon triggers an additional growth-stage warning.
+  </div>
+  <div class="diagram-wrapper">
+    <div class="mermaid">
+flowchart TD
+    W(["Check wait times for\nall products in treatment"]):::startNode --> V{"All product wait times\n<= planting interval?"}
+
+    V -->|Yes| OK["Append crop-specific\nagronomic restrictions"]:::validNode
+    V -->|No| FAIL[/"Warn: cannot plant\nnext_crop due to residue\nrestrictions"/]:::warnNode
+
+    OK --> M{"Treatment includes\nMonsoon?"}
+    FAIL --> M
+
+    M -->|Yes| MW[/"Append: apply Monsoon\nonly before corn\n6-leaf stage"/]:::infoNode
+    M -->|No| RET
+
+    MW --> RET(["Return Bedrock response\noverride_timing = true\n+ session attributes"]):::doneNode
+
+    classDef startNode fill:#0969da,stroke:#0550ae,color:#fff
+    classDef validNode fill:#1a7f37,stroke:#116329,color:#fff
+    classDef warnNode fill:#bc4c00,stroke:#953800,color:#fff
+    classDef infoNode fill:#8250df,stroke:#6639ba,color:#fff
+    classDef doneNode fill:#1a7f37,stroke:#116329,color:#fff
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Herbicide Recommendation Engine &mdash; Decision Flowchart &mdash; Generated from get-herbicides-v3-fr94o.py
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    themeVariables: {
+      darkMode: false,
+      background: '#ffffff',
+      primaryColor: '#dbeafe',
+      primaryTextColor: '#1f2328',
+      primaryBorderColor: '#93c5fd',
+      lineColor: '#8b949e',
+      secondaryColor: '#dcfce7',
+      tertiaryColor: '#f3e8ff',
+      fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif',
+      fontSize: '14px',
+      nodeTextColor: '#1f2328',
+    },
+    flowchart: {
+      htmlLabels: true,
+      curve: 'basis',
+      padding: 15,
+      nodeSpacing: 40,
+      rankSpacing: 50,
+    },
+    securityLevel: 'loose',
+  });
+
+  // Collapse/expand
+  function toggle(header) {
+    header.classList.toggle('collapsed');
+    const body = header.nextElementSibling;
+    if (body && body.classList.contains('section-desc')) {
+      // skip desc, toggle the diagram wrapper
+      const diagram = body.nextElementSibling;
+      if (diagram) diagram.classList.toggle('collapsed-body');
+    } else if (body) {
+      body.classList.toggle('collapsed-body');
+    }
+  }
+
+  // Sticky nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-80px 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

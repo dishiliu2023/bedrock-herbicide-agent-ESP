@@ -1,0 +1,50 @@
+openapi: 3.0.1
+info:
+  title: Weed Advisor API
+  version: "1.1"
+paths:
+  /identifyPlantableCrops:
+    post:
+      operationId: identifyPlantableCrops
+      summary: Return plantable crops after the application of some specified herbicides.
+      description: >
+        Use this operation only when the user mentions one or two herbicides and ask for a list of all crops that can be planted next season; or the user asks whether specific crops are suitable for planting next season given the herbicides applied.
+        Invoke this operation to return a list of all crops that can be safely planted next season based on the specified herbicide application.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                herbicide_names:           
+                  type: array
+                  description: >
+                    A list containing **one or two** herbicide names,
+                    e.g. ["Laudis"] or
+                    ["Laudis", "Monsoon"].
+                  minItems: 1              # must supply at least one name :contentReference[oaicite:0]{index=0}
+                  maxItems: 2              # but never more than two
+                  uniqueItems: true        # duplicates rejected
+                  items:
+                    type: string
+                    description: Herbicide names.
+
+              required:                  
+                - herbicide_names
+
+      responses:
+        "200":
+          description: plantable crops returned from the Lambda function.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  crop_list:
+                    type: string
+                    description: >
+                      A plain-language list of plantable crop names and the respective associated restrictions(if there is any)
+                      (e.g. "wheat, cron, beet(the crop has to be a spring crop), sunflower and green beans")
+  
+                      

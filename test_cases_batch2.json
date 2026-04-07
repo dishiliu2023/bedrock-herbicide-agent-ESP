@@ -1,0 +1,613 @@
+[
+  {
+    "id": "TC-61",
+    "name": "Datura stramonium, G3, post, cebada (untested weed+crop)",
+    "query": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebada.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 for Datura = Laudis WG (0.5KG/HA) and Oizysa (0.5L/HA), score=5. Cebada interval=5mo (Nov-Jun). Wait times should pass for this treatment.",
+    "criteria": [
+      "Response contains a herbicide recommendation (not an error or question)",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Oizysa'",
+      "Response references Datura stramonium or estramonio"
+    ]
+  },
+  {
+    "id": "TC-62",
+    "name": "Digitaria sanguinalis, G3, post, avena (untested weed+crop)",
+    "query": "En mi campo de maiz en Zaragoza tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera avena.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 for Digitaria = Laudis WG (0.5 KG/HA), score=5. Avena interval=5mo. Wait time should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Response references Digitaria sanguinalis or pendejuelo"
+    ]
+  },
+  {
+    "id": "TC-63",
+    "name": "Polygonum aviculare, G1, post, triticale (untested weed+crop)",
+    "query": "En mi campo de maiz en Galicia tengo Polygonum aviculare. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera triticale.",
+    "follow_up_answers": {},
+    "expected": "Group 1, high dose, post. Rank 1 for Polygonum aviculare = Laudis WG + Monsoon, score=5. Triticale interval=5mo. Should pass wait times.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Monsoon'",
+      "No plant-back restriction warning for triticale"
+    ]
+  },
+  {
+    "id": "TC-64",
+    "name": "Xanthium strumarium, G3, post, garbanzo (untested weed+crop)",
+    "query": "En mi campo de maiz en Navarra tengo Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera garbanzo.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 for Xanthium = Laudis WG + Oizysa, score=6. Garbanzo interval=8mo (Feb next year - Jun). Laudis WG=1, Oizysa=1 both pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Oizysa'",
+      "Response references Xanthium strumarium or bardana"
+    ]
+  },
+  {
+    "id": "TC-65",
+    "name": "Portulaca oleracea, G3, post, veza - top ranks fail wait",
+    "query": "En mi campo de maiz en Huesca tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera veza.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 = Monsoon+Oizysa (score 5). Veza interval=5mo. Monsoon wait=11 -> FAILS. Rank 2=Capreno+Oizysa (5), Capreno=11 -> FAILS. First valid candidate should be a treatment without Monsoon/Capreno/Fluva/Diflufenican (all have long waits for veza).",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT include 'Monsoon' (wait time 11mo > 5mo interval)",
+      "Response mentions plant-back restriction or excluded treatments or residue restrictions",
+      "Response references Portulaca oleracea or verdolaga"
+    ]
+  },
+  {
+    "id": "TC-66",
+    "name": "Chenopodium album, G3, post, habas - Fluva fails wait",
+    "query": "En mi campo de maiz en Zaragoza tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera habas.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 = Laudis WG + Fluva (score 6). Habas interval=5mo. Fluva wait=24 -> FAILS. Rank 2 = Laudis WG + Oizysa (score 6), Oizysa=1 -> PASSES. Primary should be Laudis WG + Oizysa.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Oizysa' (not Fluva, which fails wait time)",
+      "Response does NOT recommend Fluva as part of the primary treatment"
+    ]
+  },
+  {
+    "id": "TC-67",
+    "name": "Cirsium arvense, G3, post, brocoli - Monsoon fails wait",
+    "query": "En mi campo de maiz en Navarra tengo Cirsium arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 = Laudis WG + Monsoon (5). Brocoli interval=4mo. Monsoon wait=6 -> FAILS. Next rank without Monsoon should become primary (e.g. Laudis WG + Fluva or similar).",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT include 'Monsoon' alone as the key product (Monsoon wait=6 > 4mo interval for brocoli)",
+      "Response references Cirsium arvense or cardo",
+      "Response references brocoli as next crop"
+    ]
+  },
+  {
+    "id": "TC-68",
+    "name": "Sinapis arvensis, G2, post, less than 3 leaves -> low dose",
+    "query": "En mi campo de maiz en Valladolid tengo Sinapis arvensis en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"hoja": "menos de tres hojas", "desarrollo": "menos de tres hojas"},
+    "expected": "Group 2, post-emergence, stage=less than three leaves -> low dose. Trigo interval=5mo. Should return a low-dose treatment recommendation.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Sinapis arvensis or mostaza",
+      "Response references trigo as next crop",
+      "No plant-back restriction warning (trigo has favorable wait times)"
+    ]
+  },
+  {
+    "id": "TC-69",
+    "name": "Stellaria media, G2, pre-emergence -> low dose",
+    "query": "En mi campo de maiz en Zamora tengo Stellaria media. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera cebada.",
+    "follow_up_answers": {},
+    "expected": "Group 2, pre-emergence -> low dose (no stage asked for pre). Cebada interval=5mo. Should return a low-dose pre-emergence treatment.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Stellaria media or pamplina",
+      "Agent does NOT ask about weed development stage (stage not needed for pre-emergence)",
+      "Response references cebada as next crop"
+    ]
+  },
+  {
+    "id": "TC-70",
+    "name": "Galinsoga parviflora, G3, pre, not sandy -> high dose",
+    "query": "En mi campo de maiz en Huesca tengo Galinsoga parviflora. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera patata.",
+    "follow_up_answers": {"suelo": "no arenoso", "arena": "no arenoso"},
+    "expected": "Group 3, pre-emergence, not sandy -> high dose. Patata interval=9mo (Mar next year). Should return high-dose pre-emergence treatment.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Galinsoga parviflora or albahaca silvestre",
+      "Response references patata as next crop"
+    ]
+  },
+  {
+    "id": "TC-71",
+    "name": "Panicum dichotomiflorum, G3, post, col (4mo interval)",
+    "query": "En mi campo de maiz en Zaragoza tengo Panicum dichotomiflorum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 = Monsoon+Cubix (score 5). Col interval=4mo (Oct-Jun). Monsoon wait for Col likely ~6mo -> FAILS. Should skip to ranks without long-wait products.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Panicum dichotomiflorum or mijo",
+      "Response references col as next crop"
+    ]
+  },
+  {
+    "id": "TC-72",
+    "name": "Papaver rhoeas, G3, post, cebolla (9mo interval)",
+    "query": "En mi campo de maiz en Navarra tengo Papaver rhoeas. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera cebolla.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Cebolla interval=9mo (Mar next year - Jun). Most products should pass with 9mo interval.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Papaver rhoeas or amapola",
+      "Response references cebolla as next crop"
+    ]
+  },
+  {
+    "id": "TC-73",
+    "name": "Standard weed, G3, post, tomate (9mo interval)",
+    "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tomate.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Tomate interval=9mo (Mar next year). Most products pass at 9mo. Rank 1 = Laudis WG + Monsoon should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Monsoon'",
+      "Response references tomate as next crop"
+    ]
+  },
+  {
+    "id": "TC-74",
+    "name": "Standard weed, G1, post, algodon (10mo interval)",
+    "query": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon.",
+    "follow_up_answers": {},
+    "expected": "Group 1, high dose, post. Algodon interval=10mo (Apr next year). All products should easily pass at 10mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Monsoon'",
+      "No plant-back restriction warning"
+    ]
+  },
+  {
+    "id": "TC-75",
+    "name": "Standard weed, G3, post, tabaco (10mo interval, untested crop)",
+    "query": "En mi campo de maiz en Zaragoza tengo Echinochloa crus-galli. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera tabaco.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Tabaco interval=10mo (Apr next year). Most products should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Echinochloa or arrocillo or pata de gallina",
+      "Response references tabaco as next crop"
+    ]
+  },
+  {
+    "id": "TC-76",
+    "name": "Standard weed, G3, post, alubia (11mo interval)",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera alubia.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Alubia interval=11mo (May next year). Virtually all products pass at 11mo except possibly 24mo products.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Solanum nigrum or tomatito",
+      "Response references alubia or judia as next crop"
+    ]
+  },
+  {
+    "id": "TC-77",
+    "name": "Standard weed, G3, post, judia verde (11mo interval)",
+    "query": "En mi campo de maiz en Huesca tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera judia verde.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Judia verde interval=11mo (May next year). Most products should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Datura stramonium or estramonio",
+      "Response references judia verde as next crop"
+    ]
+  },
+  {
+    "id": "TC-78",
+    "name": "Adengo applied last season -> blocks Adengo/Spade Flexx/Monsoon",
+    "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis en post-emergencia. El proximo cultivo sera trigo. El ano pasado aplique Adengo.",
+    "follow_up_answers": {"adengo": "si", "anterior": "Adengo"},
+    "expected": "Group 3, post, adengo_applied=true. All treatments containing Adengo, Spade Flexx, or Monsoon should be filtered out. Remaining treatments should use Laudis WG, Capreno, Fluva, Oizysa, Cubix, etc.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT contain 'Adengo'",
+      "Primary recommendation does NOT contain 'Monsoon' (blocked due to prior Adengo use)",
+      "Primary recommendation does NOT contain 'Spade Flexx' (blocked due to prior Adengo use)"
+    ]
+  },
+  {
+    "id": "TC-79",
+    "name": "Follow-up with previously applied Capreno -> taboo",
+    "query": "En mi campo de maiz en Huesca tengo Chenopodium album en post-emergencia. Ya aplique Capreno y quiero un tratamiento de seguimiento. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"producto": "Capreno", "anterior": "Capreno", "aplica": "Capreno"},
+    "expected": "Group 3, post, follow_up=true, previously applied Capreno -> Capreno in taboo list. Treatments containing Capreno should be skipped.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT contain 'Capreno' (taboo product)",
+      "Response references Chenopodium album or cenizo or quinoa"
+    ]
+  },
+  {
+    "id": "TC-80",
+    "name": "Follow-up with Fluva+Oizysa previously applied -> both taboo",
+    "query": "En mi campo de maiz en Zaragoza tengo Solanum nigrum en post-emergencia. Ya aplique Fluva y Oizysa y necesito un tratamiento de seguimiento. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"producto": "Fluva, Oizysa", "anterior": "Fluva, Oizysa", "aplica": "Fluva y Oizysa"},
+    "expected": "Group 3, post, follow_up=true, previously applied Fluva and Oizysa. Both in taboo list. Treatments with either product should be skipped.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT contain 'Fluva' (taboo product)",
+      "Primary recommendation does NOT contain 'Oizysa' (taboo product)"
+    ]
+  },
+  {
+    "id": "TC-81",
+    "name": "Adengo applied + taboo Laudis WG -> severe filtering",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum en post-emergencia. El ano pasado aplique Adengo. No quiero usar Laudis WG. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"adengo": "si", "anterior": "Adengo", "taboo": "Laudis WG"},
+    "expected": "G3, post, adengo_applied=true (blocks Adengo/Spade Flexx/Monsoon) + taboo Laudis WG. Very few treatments remain: only combinations of Capreno, Fluva, Oizysa, Cubix without the blocked products.",
+    "criteria": [
+      "Response contains a herbicide recommendation or states no valid treatments available",
+      "Response does NOT recommend Laudis WG, Adengo, Monsoon, or Spade Flexx as primary",
+      "Response references Solanum nigrum or tomatito"
+    ]
+  },
+  {
+    "id": "TC-82",
+    "name": "Spanish name verdolaga -> Portulaca oleracea",
+    "query": "En mi campo de maiz en Huesca tengo verdolaga. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'verdolaga' to Portulaca oleracea via embedding similarity. Group 3, high dose, post. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation (resolved the Spanish name)",
+      "Response references Portulaca oleracea or verdolaga",
+      "Response is NOT asking the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-83",
+    "name": "Spanish name amapola -> Papaver rhoeas",
+    "query": "En mi campo de maiz en Zaragoza tengo amapola. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'amapola' to Papaver rhoeas. Group 3, high dose, post. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Papaver rhoeas or amapola",
+      "Response is NOT asking the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-84",
+    "name": "Spanish name estramonio -> Datura stramonium",
+    "query": "En mi campo de maiz en Navarra tengo estramonio. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'estramonio' to Datura stramonium. Group 3, high dose, post. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Datura stramonium or estramonio",
+      "Response is NOT asking the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-85",
+    "name": "Crop variation canola -> colza",
+    "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti en post-emergencia. El proximo cultivo sera canola.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'canola' to colza via crop name variations. Colza interval=3mo (Sep-Jun). Very tight interval, many products fail.",
+    "criteria": [
+      "Response contains a herbicide recommendation or mentions plant-back restrictions",
+      "Response references colza or canola as next crop",
+      "Agent does NOT say the crop is unknown or unrecognized"
+    ]
+  },
+  {
+    "id": "TC-86",
+    "name": "Crop variation soya -> soja",
+    "query": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare en post-emergencia. El proximo cultivo sera soya.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'soya' to soja. Soja interval=9mo (Mar next year). Most products pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references soja or soya as next crop",
+      "Agent correctly resolves crop name without asking for clarification"
+    ]
+  },
+  {
+    "id": "TC-87",
+    "name": "Crop variation arveja -> guisante",
+    "query": "En mi campo de maiz en Navarra tengo Stellaria media en post-emergencia. El proximo cultivo sera arveja.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve 'arveja' to guisante. Guisante interval=8mo (Feb next year). Most products pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references guisante or arveja as next crop",
+      "Agent correctly resolves crop name without asking for clarification"
+    ]
+  },
+  {
+    "id": "TC-88",
+    "name": "Genus-only weed: Chenopodium -> should resolve",
+    "query": "En mi campo de maiz en Huesca tengo Chenopodium en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve genus 'Chenopodium' to a Chenopodium species (album or opulifolium) via embedding match. Should return a recommendation.",
+    "criteria": [
+      "Response contains a herbicide recommendation or asks which Chenopodium species",
+      "Response references Chenopodium",
+      "Response does NOT say the weed is completely unknown"
+    ]
+  },
+  {
+    "id": "TC-89",
+    "name": "Genus-only weed: Polygonum -> should resolve",
+    "query": "En mi campo de maiz en Zaragoza tengo Polygonum en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve genus 'Polygonum' to one of the Polygonum species (aviculare, convolvulus, lapathifolium, persicaria). May ask for clarification or use default match.",
+    "criteria": [
+      "Response contains a herbicide recommendation or asks which Polygonum species",
+      "Response references Polygonum",
+      "Response does NOT say the weed is completely unknown"
+    ]
+  },
+  {
+    "id": "TC-90",
+    "name": "Very limited efficacy: Equisetum arvense, G3, post (score=1)",
+    "query": "En mi campo de maiz en Navarra tengo Equisetum arvense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Rank 1 for Equisetum = Monsoon+Fluva (score=1). Should return recommendation with 'very limited efficacy' warning.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions limited efficacy or very limited efficacy or low effectiveness or baja eficacia",
+      "Response references Equisetum arvense or cola de caballo"
+    ]
+  },
+  {
+    "id": "TC-91",
+    "name": "Very limited efficacy: Cynodon dactylon, G3, post",
+    "query": "En mi campo de maiz en Huesca tengo Cynodon dactylon. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post. Cynodon dactylon likely has low efficacy scores. Should mention limited efficacy if score <= 3.",
+    "criteria": [
+      "Response contains a herbicide recommendation or states no treatment available",
+      "Response references Cynodon dactylon or grama or cesped or bermuda"
+    ]
+  },
+  {
+    "id": "TC-92",
+    "name": "Two-weed: Chenopodium album + Datura stramonium, G3, post",
+    "query": "En mi campo de maiz en Navarra tengo Chenopodium album y Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Two-weed combo, G3, high dose, post. Rank 1 = Laudis WG+Oizysa (score 5). Trigo interval=5mo. Both Laudis WG and Oizysa have short wait times. Should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references both weeds (Chenopodium and Datura)",
+      "Primary recommendation mentions 'Laudis WG'",
+      "Primary recommendation mentions 'Oizysa'"
+    ]
+  },
+  {
+    "id": "TC-93",
+    "name": "Two-weed: Digitaria + Xanthium, G3, post",
+    "query": "En mi campo de maiz en Huesca tengo Digitaria sanguinalis y Xanthium strumarium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Two-weed combo, G3, high dose, post. Should return a treatment that covers both weeds. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references both weeds (Digitaria and Xanthium)",
+      "No plant-back restriction warning for trigo"
+    ]
+  },
+  {
+    "id": "TC-94",
+    "name": "Two-weed: Polygonum aviculare + Sinapis arvensis, G3, post",
+    "query": "En mi campo de maiz en Zaragoza tengo Polygonum aviculare y Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Two-weed combo, G3, high dose, post. Should return a treatment covering both weeds.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references both weeds (Polygonum and Sinapis)",
+      "No plant-back restriction warning for trigo"
+    ]
+  },
+  {
+    "id": "TC-95",
+    "name": "Location Asturias -> Group 1",
+    "query": "En mi campo de maiz en Asturias tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Asturias = Group 1, high dose, post. Should return standard recommendation for Group 1.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Asturias as the location",
+      "Response references Sinapis arvensis or mostaza"
+    ]
+  },
+  {
+    "id": "TC-96",
+    "name": "Location Valladolid -> Group 2, post, stage needed",
+    "query": "En mi campo de maiz en Valladolid tengo Chenopodium album en post-emergencia. Las malas hierbas tienen tres hojas o mas. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"hoja": "tres hojas o mas", "desarrollo": "tres hojas o mas"},
+    "expected": "Valladolid = Group 2, post-emergence, stage=three leaves or more -> high dose (not low). Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Valladolid as the location",
+      "Response references Chenopodium album or cenizo or quinoa"
+    ]
+  },
+  {
+    "id": "TC-97",
+    "name": "Location Murcia -> Group 3",
+    "query": "En mi campo de maiz en Murcia tengo Portulaca oleracea. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Murcia = Group 3, high dose, post. Standard recommendation.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Murcia as the location",
+      "Response references Portulaca oleracea or verdolaga"
+    ]
+  },
+  {
+    "id": "TC-98",
+    "name": "Location Burgos -> Group 2, pre -> low dose",
+    "query": "En mi campo de maiz en Burgos tengo Polygonum aviculare. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Burgos = Group 2, pre-emergence -> low dose. No stage question asked for pre-emergence. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Burgos as the location",
+      "Agent does NOT ask about weed development stage for pre-emergence"
+    ]
+  },
+  {
+    "id": "TC-99",
+    "name": "Location Palencia -> Group 2, post, less than 3 leaves -> low dose",
+    "query": "En mi campo de maiz en Palencia tengo Xanthium strumarium en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera cebada.",
+    "follow_up_answers": {"hoja": "menos de tres hojas", "desarrollo": "menos de tres hojas"},
+    "expected": "Palencia = Group 2, post-emergence, stage=less than three leaves -> low dose. Cebada interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Palencia as the location",
+      "Response references Xanthium strumarium or bardana"
+    ]
+  },
+  {
+    "id": "TC-100",
+    "name": "Location Sevilla -> Group 3, pre, sandy -> medium dose",
+    "query": "En mi campo de maiz en Sevilla tengo Polygonum aviculare. Quiero aplicar un herbicida en pre-emergencia. El suelo es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {"suelo": "arenoso", "arena": "arenoso"},
+    "expected": "Sevilla = Group 3, pre-emergence, sandy -> medium dose. Trigo interval=5mo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Sevilla as the location",
+      "Response references Polygonum aviculare or centinodia"
+    ]
+  },
+  {
+    "id": "TC-101",
+    "name": "Restriction text for patata with long-wait products",
+    "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera patata.",
+    "follow_up_answers": {},
+    "expected": "G3, high dose, post. Patata interval=9mo (Mar next year). Rank 1 = Laudis WG + Monsoon. Monsoon wait for patata=12 -> FAILS (9<12). Primary should skip to treatment without Monsoon. Should mention restriction/exclusion.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT include 'Monsoon' alone as key product (if Monsoon wait=12 > 9mo interval)",
+      "Response references patata as next crop"
+    ]
+  },
+  {
+    "id": "TC-102",
+    "name": "Colza (3mo interval) - many products fail, untested weed",
+    "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera colza.",
+    "follow_up_answers": {},
+    "expected": "G3, high dose, post. Colza interval=3mo (Sep-Jun). Laudis WG wait=4 -> FAILS (3<4). Monsoon=12 -> FAILS. Only products with 1mo wait pass: Cubix, Fluva, Oizysa, Dimetenamida, Fluoxipir.",
+    "criteria": [
+      "Response contains a herbicide recommendation or mentions no valid treatments",
+      "Response mentions plant-back restriction or excluded treatments due to colza's short interval",
+      "Response references Digitaria sanguinalis or pendejuelo"
+    ]
+  },
+  {
+    "id": "TC-103",
+    "name": "Brocoli (4mo interval), G1, Monsoon/Adengo/Capreno fail",
+    "query": "En mi campo de maiz en Galicia tengo Sinapis arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera brocoli.",
+    "follow_up_answers": {},
+    "expected": "G1, high dose, post. Brocoli interval=4mo (Oct-Jun). Monsoon wait=6 -> FAILS. Adengo=6 -> FAILS. Capreno=6 -> FAILS. Treatments with only short-wait products should become primary.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Sinapis arvensis or mostaza",
+      "Response references brocoli as next crop"
+    ]
+  },
+  {
+    "id": "TC-104",
+    "name": "Col (4mo interval), Diflufenican fails (wait=7)",
+    "query": "En mi campo de maiz en Cantabria tengo Galinsoga parviflora. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera col.",
+    "follow_up_answers": {},
+    "expected": "G1, high dose, post. Col interval=4mo (Oct-Jun). Diflufenican wait=7 -> FAILS. Monsoon wait probably >4 -> FAILS. Primary should avoid these products.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Galinsoga parviflora or albahaca silvestre",
+      "Response references col or repollo as next crop"
+    ]
+  },
+  {
+    "id": "TC-105",
+    "name": "Palmeri G3 LOW + colza (very tight, Diflufenican 24mo fails)",
+    "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera colza.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded palmeri G3 LOW path: pre-only (Spade Flexx + Dimetenamida 72% + Diflufenican 50%). Colza interval=3mo. Diflufenican wait=7 -> FAILS (3<7). Should warn about plant-back issue.",
+    "criteria": [
+      "Response mentions Amaranthus palmeri or bledo palmeri",
+      "Response mentions plant-back restriction or residue issue for colza",
+      "Response mentions 'Diflufenican' or 'Spade Flexx' as part of the treatment"
+    ]
+  },
+  {
+    "id": "TC-106",
+    "name": "Cyperus G1 HIGH + colza (tight interval)",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 HIGH path: pre+post consecutive. Products: Spade Flexx, Fluva, Monsoon, Dimetenamida 72%. Colza interval=3mo. Monsoon wait=12 -> FAILS. Should mention plant-back issue.",
+    "criteria": [
+      "Response mentions Cyperus rotundus or juncia or coqui",
+      "Response mentions plant-back restriction or that the next crop cannot be planted",
+      "Response mentions 'Monsoon' as part of the treatment"
+    ]
+  },
+  {
+    "id": "TC-107",
+    "name": "Setaria G1 HIGH + colza (Monsoon fails wait)",
+    "query": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida. El proximo cultivo sera colza.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Setaria G1 HIGH: pre+post consecutive. Products: Spade Flexx, Cubix, Monsoon, Dimetenamida 72%. Colza interval=3mo. Monsoon wait=12 -> FAILS. Spade Flexx wait=4 -> FAILS.",
+    "criteria": [
+      "Response mentions Setaria viridis or almorejo",
+      "Response mentions plant-back restriction or residue issue for colza",
+      "Response mentions the treatment products"
+    ]
+  },
+  {
+    "id": "TC-108",
+    "name": "Misspelled weed: Dattura stramonuim -> Datura stramonium",
+    "query": "En mi campo de maiz en Navarra tengo Dattura stramonuim. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve misspelled 'Dattura stramonuim' to Datura stramonium via embedding similarity. Should return a recommendation.",
+    "criteria": [
+      "Response contains a herbicide recommendation (resolved despite misspelling)",
+      "Response references Datura stramonium or estramonio",
+      "Response is NOT saying the weed is completely unknown"
+    ]
+  },
+  {
+    "id": "TC-109",
+    "name": "Misspelled weed: Echinocloa crus gali -> Echinochloa",
+    "query": "En mi campo de maiz en Huesca tengo Echinocloa crus gali. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve misspelled 'Echinocloa crus gali' to Echinochloa crus-galli. Should return a recommendation.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response references Echinochloa crus-galli or arrocillo or pata de gallina",
+      "Response is NOT saying the weed is completely unknown"
+    ]
+  },
+  {
+    "id": "TC-110",
+    "name": "English crop name: potato -> patata, garlic -> ajo",
+    "query": "En mi campo de maiz en Navarra tengo Sinapis arvensis en post-emergencia. El proximo cultivo sera garlic.",
+    "follow_up_answers": {},
+    "expected": "Agent should resolve English crop name 'garlic' to ajo. Ajo interval=4mo (Oct-Jun). Tight interval, many products fail.",
+    "criteria": [
+      "Response contains a herbicide recommendation or mentions plant-back restrictions",
+      "Response references ajo or garlic as next crop",
+      "Agent does NOT say the crop is unknown"
+    ]
+  }
+]
