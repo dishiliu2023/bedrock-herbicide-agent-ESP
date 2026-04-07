@@ -11,7 +11,7 @@ paths:
         Use this **only** when the user intends to obtain a herbicide solution for specific weeds.
         The user may explicitly ask for a herbicide recommendation **or they may simply provide the weeds, the location of the field, the application timing, and the crop they intend to plant in the next season, expecting you to suggest an appropriate herbicide treatment**.
         The user might optionally specify whether he or she is asking for a follow-up treatment recommendation. In this case a list of herbicide products that were already applied previously in the current season should be provided. 
-        The user might optionally state whether Adengo was applied in the last season, and optionally specify a list of herbicide products that are not available to him or her.  
+        The user might optionally specify a list of herbicide products that are not available to him or her.
         Call this action to return a herbicide treatment that controls the weeds in the corn field and degrades to safe levels before the follow-up crop is planted.
         IMPORTANT CONDITIONAL REQUIREMENTS:
         - If location_group_num is "2" AND application_timing is "post-emergence", you MUST ask for development_stage. Otherwise, development_stage is not needed and should NOT be requested
@@ -68,10 +68,6 @@ paths:
                 next_crop:  
                   type: string
                   description: Crop that will be planted next season.
-                adengo_was_applied:  
-                  type: boolean
-                  description: whether Adengo was applied last season.
-                  default: false
                 taboo_products:  
                   type: array
                   description: >

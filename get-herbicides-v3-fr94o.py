@@ -304,7 +304,6 @@ def lambda_handler(event, context):
     follow_up_treatment = params.get("follow_up_treatment", False)
     previously_applied_products = params.get("previously_applied_products", "[]")
 
-    adengo_applied = params.get("adengo_was_applied", False)
     taboo = params.get("taboo_products", "[]")
 
     stage = params.get("development_stage")
@@ -344,9 +343,6 @@ def lambda_handler(event, context):
 
     if isinstance(follow_up_treatment, str):  # sometime it is passed not as boolean but as string
         follow_up_treatment = follow_up_treatment.lower() == "true"
-
-    if isinstance(adengo_applied, str):  # sometime it is passed not as boolean but as string
-        adengo_applied = adengo_applied.lower() == "true"
 
     #print("follow_up_treatment: ", follow_up_treatment )
     #print("previously_applied_products:", previously_applied_products, type(previously_applied_products))
@@ -591,10 +587,6 @@ def lambda_handler(event, context):
                     product_names.append(product)
 
             #print("product_names:", product_names)
-            
-            # Skip the row if Adengo, Spade Flexx, or Monsoon is in the treatment AND Adengo was applied last season
-            if adengo_applied and any(product in product_names for product in ["Adengo", "Spade Flexx", "Monsoon"]):
-                continue
 
             # Skip the row if any product is in the taboo list
             if any(product in product_names for product in taboo_list):
@@ -738,9 +730,6 @@ def lambda_handler(event, context):
         else:
             reason_of_exclusion= ""
       
-        if "Adengo" in herbicide_treatment_1:
-            recommendation_1 += "\n\nWarning: If Adengo had been applied in the last season, you cannot apply this treatment for this season."
-
         if "Monsoon" in herbicide_treatment_1:
             recommendation_1 += "\n\nWarning: Apply Monsoon only before the corn reaches the 6-leaf stage."
 
@@ -768,8 +757,6 @@ def lambda_handler(event, context):
             elif rank_2_score <top_score:
                 recommendation_2 += "\nThis treatment provides lower efficacy compared to the primary recommendation."
 
-            if "Adengo" in herbicide_treatment_2:
-                recommendation_2 += "\n\nWarning: If Adengo had been applied in the last season, you cannot apply this treatment for this season."        
             if "Monsoon" in herbicide_treatment_2:
                 recommendation_2 += "\n\nWarning: Apply Monsoon only before the corn reaches the 6-leaf stage."
             # Add alternative recommendation
@@ -804,8 +791,6 @@ def lambda_handler(event, context):
                 recommendation_3 += f"\n{msg}."
 
 
-            if "Adengo" in herbicide_treatment_3:
-                recommendation_3 += "\n\nWarning: If Adengo had been applied in the last season, you cannot apply this treatment for this season."
             if "Monsoon" in herbicide_treatment_3:
                 recommendation_3 += "\n\nWarning: Apply Monsoon only before the corn reaches the 6-leaf stage."
             # Add another alternative recommendation

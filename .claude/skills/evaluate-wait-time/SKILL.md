@@ -195,6 +195,6 @@ State clearly:
   wait-time check (`check_wait_times()` at lines 193-236) still applies,
   so Steps 3-7 work the same way — just replace Step 2 with the hardcoded
   product list.
-- The `adengo_applied` and `taboo_list` filters run *before* the wait-time
-  check (lines 586-591). If relevant, note which treatments would be
-  skipped by those filters before reaching the wait-time stage.
+- The `taboo_list` filter runs *before* the wait-time check. If relevant,
+  note which treatments would be skipped by that filter before reaching
+  the wait-time stage.

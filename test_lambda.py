@@ -37,7 +37,6 @@ BASE_EVENT = {
                     {"name": "soil_type",              "value": "sandy"},
                     {"name": "weed_pressure_level",    "value": "high"},
                     {"name": "follow_up_treatment",    "value": "false"},
-                    {"name": "adengo_was_applied",     "value": "false"},
                     {"name": "previously_applied_products", "value": "[]"},
                 ]
             }
@@ -177,14 +176,6 @@ TEST_CASES = [
       "location": "Castilla y Leon", "next_crop": "trigo",
       "taboo_products": "[Laudis WG, Monsoon]"},
      "Path A: should exclude Laudis WG and Monsoon from results"),
-
-    ("A-11", "Adengo previously applied → block Adengo/Spade Flexx/Monsoon",
-     {"location_group_num": 1, "weed_names": "[Convulvulus arvensis]",
-      "application_timing": "pre-emergence", "weed_pressure_level": "low",
-      "location": "Castilla y Leon", "next_crop": "trigo",
-      "adengo_was_applied": "true",
-      "previously_applied_products": "[Adengo]"},
-     "Path A: Adengo cross-resistance filtering"),
 
     # ─── Path B: Amaranthus palmeri (Group 3) ────────────────────────────
     ("B-01", "A. palmeri, Group 3, high pressure",

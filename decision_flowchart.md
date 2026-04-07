@@ -12,7 +12,7 @@ flowchart TD
     TIMING -->|contains 'pre'| SET_PRE[timing = pre-emergence]
     TIMING -->|neither| ASK_TIMING[/Ask user: pre or post-emergence?/]
 
-    SET_POST --> PARSE2[Parse follow_up_treatment,<br>adengo_applied, taboo_list,<br>previously_applied_products]
+    SET_POST --> PARSE2[Parse follow_up_treatment,<br>taboo_list,<br>previously_applied_products]
     SET_PRE --> PARSE2
 
     PARSE2 --> TABOO_EXTEND[Extend taboo list with<br>previously applied products]
@@ -124,10 +124,8 @@ flowchart TD
     subgraph PATH_A [Path A: Standard Table Lookup]
         direction TB
         A1[Filter herbicide_df by:<br>weed1 + weed2 combo<br>+ timing + dose level<br>sorted by Rank] --> A2[Loop through candidates]
-        A2 --> A3{Adengo applied<br>AND treatment contains<br>Adengo/Spade Flexx/Monsoon?}
-        A3 -->|Yes| A_SKIP[Skip this candidate]
-        A3 -->|No| A4{Any product in<br>taboo list?}
-        A4 -->|Yes| A_SKIP
+        A2 --> A4{Any product in<br>taboo list?}
+        A4 -->|Yes| A_SKIP[Skip this candidate]
         A4 -->|No| A5[Look up wait time<br>for each product in treatment<br>against next crop + location group]
         A5 --> A6{All wait times ≤<br>planting interval?}
         A6 -->|Yes| A_VALID[Add to valid_candidates]

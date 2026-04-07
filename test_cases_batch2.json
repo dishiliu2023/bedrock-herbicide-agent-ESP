@@ -93,7 +93,10 @@
     "id": "TC-68",
     "name": "Sinapis arvensis, G2, post, less than 3 leaves -> low dose",
     "query": "En mi campo de maiz en Valladolid tengo Sinapis arvensis en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"hoja": "menos de tres hojas", "desarrollo": "menos de tres hojas"},
+    "follow_up_answers": {
+      "hoja": "menos de tres hojas",
+      "desarrollo": "menos de tres hojas"
+    },
     "expected": "Group 2, post-emergence, stage=less than three leaves -> low dose. Trigo interval=5mo. Should return a low-dose treatment recommendation.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -119,7 +122,10 @@
     "id": "TC-70",
     "name": "Galinsoga parviflora, G3, pre, not sandy -> high dose",
     "query": "En mi campo de maiz en Huesca tengo Galinsoga parviflora. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera patata.",
-    "follow_up_answers": {"suelo": "no arenoso", "arena": "no arenoso"},
+    "follow_up_answers": {
+      "suelo": "no arenoso",
+      "arena": "no arenoso"
+    },
     "expected": "Group 3, pre-emergence, not sandy -> high dose. Patata interval=9mo (Mar next year). Should return high-dose pre-emergence treatment.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -215,22 +221,25 @@
   },
   {
     "id": "TC-78",
-    "name": "Adengo applied last season -> blocks Adengo/Spade Flexx/Monsoon",
-    "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis en post-emergencia. El proximo cultivo sera trigo. El ano pasado aplique Adengo.",
-    "follow_up_answers": {"adengo": "si", "anterior": "Adengo"},
-    "expected": "Group 3, post, adengo_applied=true. All treatments containing Adengo, Spade Flexx, or Monsoon should be filtered out. Remaining treatments should use Laudis WG, Capreno, Fluva, Oizysa, Cubix, etc.",
+    "name": "Standard weed, G3, post, trigo (Digitaria sanguinalis)",
+    "query": "En mi campo de maiz en Navarra tengo Digitaria sanguinalis en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Group 3, post, high dose, trigo. Standard table lookup for Digitaria sanguinalis. Should return top-ranked treatment. Trigo interval=5mo.",
     "criteria": [
       "Response contains a herbicide recommendation",
-      "Primary recommendation does NOT contain 'Adengo'",
-      "Primary recommendation does NOT contain 'Monsoon' (blocked due to prior Adengo use)",
-      "Primary recommendation does NOT contain 'Spade Flexx' (blocked due to prior Adengo use)"
+      "Response references Digitaria sanguinalis or garranchuelo",
+      "Response includes product names and dosages"
     ]
   },
   {
     "id": "TC-79",
     "name": "Follow-up with previously applied Capreno -> taboo",
     "query": "En mi campo de maiz en Huesca tengo Chenopodium album en post-emergencia. Ya aplique Capreno y quiero un tratamiento de seguimiento. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"producto": "Capreno", "anterior": "Capreno", "aplica": "Capreno"},
+    "follow_up_answers": {
+      "producto": "Capreno",
+      "anterior": "Capreno",
+      "aplica": "Capreno"
+    },
     "expected": "Group 3, post, follow_up=true, previously applied Capreno -> Capreno in taboo list. Treatments containing Capreno should be skipped.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -242,7 +251,11 @@
     "id": "TC-80",
     "name": "Follow-up with Fluva+Oizysa previously applied -> both taboo",
     "query": "En mi campo de maiz en Zaragoza tengo Solanum nigrum en post-emergencia. Ya aplique Fluva y Oizysa y necesito un tratamiento de seguimiento. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"producto": "Fluva, Oizysa", "anterior": "Fluva, Oizysa", "aplica": "Fluva y Oizysa"},
+    "follow_up_answers": {
+      "producto": "Fluva, Oizysa",
+      "anterior": "Fluva, Oizysa",
+      "aplica": "Fluva y Oizysa"
+    },
     "expected": "Group 3, post, follow_up=true, previously applied Fluva and Oizysa. Both in taboo list. Treatments with either product should be skipped.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -252,13 +265,15 @@
   },
   {
     "id": "TC-81",
-    "name": "Adengo applied + taboo Laudis WG -> severe filtering",
-    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum en post-emergencia. El ano pasado aplique Adengo. No quiero usar Laudis WG. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"adengo": "si", "anterior": "Adengo", "taboo": "Laudis WG"},
-    "expected": "G3, post, adengo_applied=true (blocks Adengo/Spade Flexx/Monsoon) + taboo Laudis WG. Very few treatments remain: only combinations of Capreno, Fluva, Oizysa, Cubix without the blocked products.",
+    "name": "Standard weed, G3, post, trigo, taboo Laudis WG (Solanum nigrum)",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum en post-emergencia. No quiero usar Laudis WG. El proximo cultivo sera trigo.",
+    "follow_up_answers": {
+      "taboo": "Laudis WG"
+    },
+    "expected": "G3, post, high dose, trigo. Taboo Laudis WG. Top ranks containing Laudis WG skipped. Should recommend first treatment without Laudis WG.",
     "criteria": [
-      "Response contains a herbicide recommendation or states no valid treatments available",
-      "Response does NOT recommend Laudis WG, Adengo, Monsoon, or Spade Flexx as primary",
+      "Response contains a herbicide recommendation",
+      "Response does NOT recommend Laudis WG as primary",
       "Response references Solanum nigrum or tomatito"
     ]
   },
@@ -434,7 +449,10 @@
     "id": "TC-96",
     "name": "Location Valladolid -> Group 2, post, stage needed",
     "query": "En mi campo de maiz en Valladolid tengo Chenopodium album en post-emergencia. Las malas hierbas tienen tres hojas o mas. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"hoja": "tres hojas o mas", "desarrollo": "tres hojas o mas"},
+    "follow_up_answers": {
+      "hoja": "tres hojas o mas",
+      "desarrollo": "tres hojas o mas"
+    },
     "expected": "Valladolid = Group 2, post-emergence, stage=three leaves or more -> high dose (not low). Trigo interval=5mo.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -470,7 +488,10 @@
     "id": "TC-99",
     "name": "Location Palencia -> Group 2, post, less than 3 leaves -> low dose",
     "query": "En mi campo de maiz en Palencia tengo Xanthium strumarium en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera cebada.",
-    "follow_up_answers": {"hoja": "menos de tres hojas", "desarrollo": "menos de tres hojas"},
+    "follow_up_answers": {
+      "hoja": "menos de tres hojas",
+      "desarrollo": "menos de tres hojas"
+    },
     "expected": "Palencia = Group 2, post-emergence, stage=less than three leaves -> low dose. Cebada interval=5mo.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -482,7 +503,10 @@
     "id": "TC-100",
     "name": "Location Sevilla -> Group 3, pre, sandy -> medium dose",
     "query": "En mi campo de maiz en Sevilla tengo Polygonum aviculare. Quiero aplicar un herbicida en pre-emergencia. El suelo es arenoso. El proximo cultivo sera trigo.",
-    "follow_up_answers": {"suelo": "arenoso", "arena": "arenoso"},
+    "follow_up_answers": {
+      "suelo": "arenoso",
+      "arena": "arenoso"
+    },
     "expected": "Sevilla = Group 3, pre-emergence, sandy -> medium dose. Trigo interval=5mo.",
     "criteria": [
       "Response contains a herbicide recommendation",
