@@ -359,9 +359,6 @@ def lambda_handler(event, context):
     previously_applied_products_list = [item.strip("'\"") for item in previously_applied_products_list]
 
     taboo_list.extend(previously_applied_products_list)
-    
-    if "Adengo" in previously_applied_products_list:
-        taboo_list.extend(["Spade Flexx", "Monsoon"])
 
     #print("previously_applied_products:", previously_applied_products_list, type(previously_applied_products_list))
     #######################################################################

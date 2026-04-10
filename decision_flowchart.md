@@ -16,10 +16,7 @@ flowchart TD
     SET_PRE --> PARSE2
 
     PARSE2 --> TABOO_EXTEND[Extend taboo list with<br>previously applied products]
-    TABOO_EXTEND --> ADENGO_TABOO{Adengo in<br>previously applied?}
-    ADENGO_TABOO -->|Yes| ADD_TABOO[Add Spade Flexx &<br>Monsoon to taboo]
-    ADENGO_TABOO -->|No| VAL1
-    ADD_TABOO --> VAL1
+    TABOO_EXTEND --> VAL1
 
     %% ── Validation cascade ──
     VAL1{follow_up_treatment<br>but no products listed?}

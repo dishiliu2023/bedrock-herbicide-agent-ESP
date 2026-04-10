@@ -203,10 +203,7 @@ flowchart TD
     SET_PRE --> PARSE2
 
     PARSE2 --> TABOO["Extend taboo list with\npreviously applied products"]
-    TABOO --> ADENGO{"Adengo in\npreviously applied?"}
-    ADENGO -->|Yes| ADD_TABOO["Add Spade Flexx &\nMonsoon to taboo"]
-    ADENGO -->|No| V1
-    ADD_TABOO --> V1
+    TABOO --> V1
 
     V1{"follow_up but\nno products listed?"}
     V1 -->|Yes| A1[/"Ask: which products\nwere applied?"/]:::askNode

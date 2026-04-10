@@ -16,7 +16,10 @@
     "id": "TC-02",
     "name": "Standard single weed, pre, G3, wait FAIL top ranks",
     "query": "En mi campo de maiz en Zaragoza tengo Abutilon theophrasti. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo. El suelo no es arenoso.",
-    "follow_up_answers": {"suelo": "no arenoso", "arena": "no arenoso"},
+    "follow_up_answers": {
+      "suelo": "no arenoso",
+      "arena": "no arenoso"
+    },
     "expected": "Group 3, high dose, pre-emergence, not sandy. Ajo interval=4mo. Rank 1 (Adengo+Dimetenamida): Adengo wait=6>4 FAILS. Rank 3 (Spade Flexx 0.4): wait=1 PASSES. Primary = Spade Flexx.",
     "criteria": [
       "Response contains a herbicide recommendation",
@@ -253,15 +256,14 @@
   },
   {
     "id": "TC-21",
-    "name": "Follow-up with Adengo previously applied",
+    "name": "Follow-up with Adengo previously applied (Adengo only taboo)",
     "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia como tratamiento de seguimiento. Ya aplique Adengo anteriormente. El proximo cultivo sera trigo.",
     "follow_up_answers": {},
-    "expected": "G3, high, post. Adengo applied -> Spade Flexx and Monsoon auto-added to taboo. Ranks with Monsoon or Spade Flexx excluded. Should recommend products without Monsoon/Spade Flexx.",
+    "expected": "G3, high, post. Adengo in previously_applied_products -> only Adengo is taboo. Spade Flexx and Monsoon are NOT blocked. Should recommend top-ranked treatment excluding Adengo only.",
     "criteria": [
       "Response contains a herbicide recommendation",
-      "Primary recommendation does NOT mention 'Monsoon'",
-      "Primary recommendation does NOT mention 'Spade Flexx'",
-      "Primary recommendation does NOT mention 'Adengo'"
+      "Primary recommendation does NOT mention Adengo (taboo as previously applied)",
+      "Response includes product names and dosages"
     ]
   },
   {
