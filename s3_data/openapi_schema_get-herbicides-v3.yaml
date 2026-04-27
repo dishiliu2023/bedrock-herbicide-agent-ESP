@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: Weed Advisor API
+  version: "1.1"
+paths:
+  /adviseWeedControl:
+    post:
+      operationId: adviseWeedControl
+      summary: Return herbicide recommendations for a given weed scenario in a Spanish corn field.
+      description: >
+        Use this **only** when the user intends to obtain a herbicide solution for specific weeds.
+        The user may explicitly ask for a herbicide recommendation **or they may simply provide the weeds, the location of the field, the application timing, and the crop they intend to plant in the next season, expecting you to suggest an appropriate herbicide treatment**.
+        The user might optionally specify whether he or she is asking for a follow-up treatment recommendation. In this case a list of herbicide products that were already applied previously in the current season should be provided. 
+        The user might optionally specify a list of herbicide products that are not available to him or her.
+        Call this action to return a herbicide treatment that controls the weeds in the corn field and degrades to safe levels before the follow-up crop is planted.
+        IMPORTANT CONDITIONAL REQUIREMENTS:
+        - If location_group_num is "2" AND application_timing is "post-emergence", you MUST ask for development_stage. Otherwise, development_stage is not needed and should NOT be requested
+        - ONLY in the following five cases you must ask for weed_pressure_level:
+          1. location_group_num is "3" AND weed_names include "Amaranthus palmeri";
+          2. location_group_num is "1" AND weed_names include "Setaria verticilata";
+          3. location_group_num is "1" AND weed_names include "Setaria viridis";
+          4. location_group_num is "1" AND weed_names include "Cyperus esculentus";
+          5. location_group_num is "1" AND weed_names include "Cyperus rotundus";
+          
+          Do NOT ask for weed_pressure_level in the cases other than the above five.
+
+        - If weed_names do NOT include "Amaranthus palmeri" AND location_group_num is "3" AND application_timing is "pre-emergence", you MUST ask for soil_type. Otherwise, soil_type is not needed and should NOT be requested.
+        - CRITICAL: Do NOT ask for soil_type if ANY of the following is true: (a)  location_group_num is "1" or "2", (b) weed_names include "Amaranthus palmeri", (c) application_timing is "post-emergence"
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                weed_names: 
+                  type: array
+                  description: >
+                    A list containing one or two weed names, which can be either Latin names or common names. For Latin names, genus-only entries are allowed. Examples: ["juncia"], ["Amaranthus retroflexus", "juncia"], or ["Digitaria", "juncia"]
+                  minItems: 1
+                  maxItems: 2
+                  uniqueItems: true
+                  items:
+                    type: string
+                    description: weed name, can be Latin binomial name (Genus species) or common name
+                location:
+                  type: string
+                  description: Free-text location name provided by the user (e.g. region, province, or city in Spain).
+                location_group_num: 
+                  type: integer
+                  description: > 
+                    Location group classification based on the user-input location:
+                    - Set to 1 if the location is in Galicia, Asturias, or Cantabria.
+                    - Set to 2 if the location is in Castilla y León, including the provinces of Ávila, Burgos, León, Palencia, Salamanca, Segovia, Soria, Valladolid, and Zamora.
+                    - Set to 3 if the location is anywhere else.
+                  enum: [1,2,3]
+                development_stage: 
+                  type: string
+                  description: The stage of the weed. If the user has not provided this, DO NOT GUESS. Leave it empty.
+                  enum: ["less than three leaves", "three leaves or more"]
+                  default: "not_specified"
+                application_timing: 
+                  type: string
+                  description: timing of application, i.e. when would the herbicide be applied - before the emergence of corn (pre-emergence) or after the emergence (post-emergence).
+                  enum: ["pre-emergence", "post-emergence"]
+                  default: "not_specified"
+                next_crop:  
+                  type: string
+                  description: Crop that will be planted next season.
+                taboo_products:  
+                  type: array
+                  description: >
+                    A list containing some herbicide products that should not be recommended, e.g. ["Laudis WG"] or ["Cubix", "Fluva", "Monsoon"]. 
+                    Can be empty array if no products are taboo.
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  items:
+                    type: string
+                    description: herbicide product name.
+                  default: "[]"
+                weed_pressure_level: 
+                  type: string
+                  description: > 
+                    Weed pressure level classification. Valid values are "high" or "low".
+                    User-provided values must be normalized to one of these literal strings.
+                    If the user does not explicitly state the pressure level, you MUST set the value to "not_specified". Do NOT infer, guess, or derive this value.
+                  enum: ["high", "low"]
+                  default: "not_specified"
+                soil_type: 
+                  type: string
+                  description: >
+                    Type of soil. Must be either "sandy" or "not sandy".
+                    If the user does not explicitly state the type of soil, you MUST set the value to "not_specified". Do NOT infer or guess this value.
+                  enum: ["sandy", "not sandy"]
+                  default: "not_specified"
+                follow_up_treatment: 
+                  type: boolean
+                  description: whether this is a recommendation for a follow-up treatment
+                  default: false
+                previously_applied_products: 
+                  type: array
+                  description: >
+                    A list containing some herbicide products that were already applied, e.g. ["Laudis WG"] or ["Cubix", "Fluva", "Monsoon"]. 
+                    Can be empty array if this is not a follow-up treatment recommendation.
+                  minItems: 0
+                  maxItems: 10
+                  uniqueItems: true
+                  items:
+                    type: string
+                    description: herbicide product name.
+                    enum: [ "Laudis WG", "Monsoon", "Adengo", "Spade Flexx", "Cubix", "Lagon",  "Capreno",  "Fluva",  "Oizysa", "Dimetenamida 72%", "Fluoxipir 20%" ]
+                  default: "[]"
+              required:
+                - weed_names
+                - location
+                - location_group_num
+                - application_timing
+                - next_crop
+      responses:
+        "200":
+          description: Herbicide treatment recommendation or messages of error or missing information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primary_herbicide_recommendation_and_agronomic_requirement:
+                    type: string
+                    description: >
+                      The most preferred herbicide treatment including product names and dosages together with the agronomic requirement for the next crop (e.g. "For corn fields, to control weed Amaranthus retroflexus and Atriplex patula, with wheat to be planted in next season, the recommendation is to apply both Laudis WG (0.33 KG/HA) and Fluva (0.3 L/HA).")
+                  alternative_herbicide_recommendation_and_agronomic_requirement:
+                    type: string
+                    description: >
+                      An alternative herbicide treatment including product names and dosages together with the agronomic requirement for the next crop
+                  another_alternative_herbicide_recommendation_and_agronomic_requirement:
+                    type: string
+                    description: >
+                      Another alternative herbicide treatment including product names and dosages together with the agronomic requirement for the next crop
+                  reason_of_exclusion:
+                    type: string
+                    description: >
+                      The reason that some treatments are excluded from the recommendation.
+                  follow_up_suggestion:
+                    type: string
+                    description: >
+                      A suggestion to the user, e.g. "Would you like to adjust the application timing to unlock more treatments?"            
+                  error:
+                    type: string
+                    description: Error message if validation fails
+                  message_to_agent_orchestration:
+                    type: string
+                    description: Message sent back to agent orchestration, telling agent what need to be done next
+                  override_timing:
+                    type: boolean
+                    description: Indicates whether the user-input timing (pre-emergence or post-emergence) should be overridden.
+                    default: false
+                    

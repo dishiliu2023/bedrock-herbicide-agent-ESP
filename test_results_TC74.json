@@ -1,0 +1,54 @@
+{
+  "run_timestamp": "2026-03-28T15:39:42.991409+00:00",
+  "agent_id": "GC6LBGNWES",
+  "agent_alias_id": "AMJSCHXS0M",
+  "eval_model": "us.anthropic.claude-3-5-haiku-20241022-v1:0",
+  "total_time_seconds": 20.0,
+  "results": [
+    {
+      "test_id": "TC-74",
+      "name": "Standard weed, G1, post, algodon (10mo interval)",
+      "query": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon.",
+      "agent_response": "El algodón no es un cultivo que esté disponible en mi base de datos para rotación después del maíz. ¿Podría indicarme qué otro cultivo planea sembrar después del maíz? Por ejemplo: trigo, soja, girasol, o cualquier otro cultivo común en su zona.",
+      "conversation_log": [
+        {
+          "role": "user",
+          "text": "En mi campo de maiz en Asturias tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera algodon."
+        },
+        {
+          "role": "agent",
+          "text": "El algodón no es un cultivo que esté disponible en mi base de datos para rotación después del maíz. ¿Podría indicarme qué otro cultivo planea sembrar después del maíz? Por ejemplo: trigo, soja, girasol, o cualquier otro cultivo común en su zona."
+        }
+      ],
+      "expected": "Group 1, high dose, post. Algodon interval=10mo (Apr next year). All products should easily pass at 10mo.",
+      "evaluation": {
+        "criteria_results": {
+          "1": {
+            "pass": false,
+            "note": "No herbicide recommendation provided in response"
+          },
+          "2": {
+            "pass": false,
+            "note": "Laudis WG not mentioned"
+          },
+          "3": {
+            "pass": false,
+            "note": "Monsoon not mentioned"
+          },
+          "4": {
+            "pass": true,
+            "note": "No plant restriction warning"
+          }
+        },
+        "score": 1,
+        "explanation": "Response fails to provide a herbicide recommendation and does not address the specific weed control need for Abutilon theophrasti in corn, instead asking for clarification about the next crop"
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "avg_score": 1.0,
+    "passed": 0,
+    "failed": 1
+  }
+}

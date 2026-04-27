@@ -1,0 +1,721 @@
+[
+  {
+    "id": "TC-01",
+    "name": "Standard single weed, post, G3, wait PASS",
+    "query": "En mi campo de maiz en Huesca tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Group 3, high dose, post-emergence. Rank 1 = Laudis WG (0.5KG/HA) and Monsoon (1.5L/HA), lower_score=5. Wait times for trigo G3: Laudis WG=5, Monsoon=1. Trigo interval=5mo. Both pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation (not an error or question)",
+      "Primary recommendation mentions 'Laudis WG' as a product",
+      "Primary recommendation mentions 'Monsoon' as a product",
+      "No plant-back restriction warning is present"
+    ]
+  },
+  {
+    "id": "TC-02",
+    "name": "Standard single weed, pre, G3, wait FAIL top ranks",
+    "query": "En mi campo de maiz en Zaragoza tengo Abutilon theophrasti. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo. El suelo no es arenoso.",
+    "follow_up_answers": {
+      "suelo": "no arenoso",
+      "arena": "no arenoso"
+    },
+    "expected": "Group 3, high dose, pre-emergence, not sandy. Ajo interval=4mo. Rank 1 (Adengo+Dimetenamida): Adengo wait=6>4 FAILS. Rank 3 (Spade Flexx 0.4): wait=1 PASSES. Primary = Spade Flexx.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Spade Flexx'",
+      "Response mentions that some treatments were excluded due to plant-back / wait time / residue restrictions",
+      "Response does NOT recommend Adengo as the primary treatment"
+    ]
+  },
+  {
+    "id": "TC-03",
+    "name": "Two-weed combo, post, G3",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti y Amaranthus albus. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Two-weed, G3, high dose, post. Rank 1 = Monsoon (1.5 L/HA) and Fluva (0.3 L/HA), lower_score=5. Trigo G3: Monsoon=1, Fluva=1. Both pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Monsoon'",
+      "Primary recommendation mentions 'Fluva'",
+      "Response references both weeds (Abutilon and Amaranthus)"
+    ]
+  },
+  {
+    "id": "TC-04",
+    "name": "Amaranthus palmeri, G3, HIGH pressure, consecutive",
+    "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded path. Pre: Spade Flexx 0.33 + Dimetenamida 72% 1.4 + Diflufenican 50% 0.24. Post: Fluva 0.3 + Oizysa 0.5. All wait times pass for trigo G3.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' as part of the pre-emergence treatment",
+      "Response mentions 'Dimetenamida' as part of the pre-emergence treatment",
+      "Response mentions 'Diflufenican' as part of the pre-emergence treatment",
+      "Response mentions 'Fluva' as part of the post-emergence treatment",
+      "Response mentions 'Oizysa' as part of the post-emergence treatment",
+      "Response describes a consecutive scheme with both pre-emergence and post-emergence applications"
+    ]
+  },
+  {
+    "id": "TC-05",
+    "name": "Amaranthus palmeri, G3, LOW pressure, pre-only",
+    "query": "En mi campo de maiz en Zaragoza tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Pre-only: Spade Flexx 0.33 + Dimetenamida 72% 1.4 + Diflufenican 50% 0.24. States post-emergence alone is insufficient.",
+    "criteria": [
+      "Response mentions 'Spade Flexx'",
+      "Response mentions 'Dimetenamida'",
+      "Response mentions 'Diflufenican'",
+      "Response states that post-emergence treatment alone is not sufficient or insufficient",
+      "Response does NOT recommend Fluva or Oizysa as post-emergence treatment products"
+    ]
+  },
+  {
+    "id": "TC-06",
+    "name": "Cyperus rotundus, G1, LOW pressure, post",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 path, low+post: Monsoon (1.5 L/HA) + Fluva (0.3 L/HA). Monsoon 6-leaf warning.",
+    "criteria": [
+      "Response mentions 'Monsoon' as a recommended product",
+      "Response mentions 'Fluva' as a recommended product",
+      "Response mentions a warning about the 6-leaf stage of corn"
+    ]
+  },
+  {
+    "id": "TC-07",
+    "name": "Setaria viridis, G1, HIGH pressure, consecutive",
+    "query": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded. Pre: Spade Flexx 0.33 + Dimetenamida 72% 1.4. Post: Monsoon 1.5 + Cubix 1.5. Monitor Setaria early.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' as part of the pre-emergence treatment",
+      "Response mentions 'Dimetenamida' as part of the pre-emergence treatment",
+      "Response mentions 'Monsoon' as part of the post-emergence treatment",
+      "Response mentions 'Cubix' as part of the post-emergence treatment",
+      "Response describes a consecutive pre+post scheme",
+      "Response mentions monitoring Setaria or treating it early / while small"
+    ]
+  },
+  {
+    "id": "TC-08",
+    "name": "Group 2, post, development stage, low dose",
+    "query": "En mi campo de maiz en Burgos tengo Amaranthus retroflexus en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Group 2, post, <3 leaves -> low dose. Rank 1 low = Monsoon (1.75 L/HA) and Fluva (0.3 L/HA), lower_score=6.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Monsoon'",
+      "Primary recommendation mentions 'Fluva'",
+      "Response references Amaranthus retroflexus"
+    ]
+  },
+  {
+    "id": "TC-09",
+    "name": "Spanish common name resolution (bledo)",
+    "query": "En mi campo de maiz en Navarra tengo bledo. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "'bledo' should resolve to an Amaranthus species. Group 3, high dose, post. Should return a valid treatment.",
+    "criteria": [
+      "Response provides a herbicide recommendation (not a 'weed not found' error)",
+      "Response mentions an Amaranthus species name OR valid treatment products (Monsoon, Fluva, Laudis WG, etc.)",
+      "Response does NOT ask the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-10",
+    "name": "Taboo products exclusion",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo. No tengo disponible Laudis WG ni Monsoon.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Laudis WG + Monsoon taboo. Ranks 1-6 excluded. Rank 7: Capreno (0.29 L/HA) and Fluva (0.3 L/HA).",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT mention 'Laudis WG'",
+      "Primary recommendation does NOT mention 'Monsoon'",
+      "Primary recommendation mentions 'Capreno' or 'Fluva' or another non-taboo product"
+    ]
+  },
+  {
+    "id": "TC-11",
+    "name": "G3, post, different weed (Echinochloa)",
+    "query": "En mi campo de maiz en Navarra tengo Echinochloa crus-galli. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Rank 1 = Laudis WG (0.5KG/HA) and Monsoon (1.5L/HA), lower_score=5. Trigo G3: all pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG' or 'Monsoon'",
+      "Response references Echinochloa crus-galli"
+    ]
+  },
+  {
+    "id": "TC-12",
+    "name": "G3, pre, sandy soil -> medium dose",
+    "query": "En mi campo de maiz en Navarra tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El suelo es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, pre, sandy -> medium dose. Rank 1 medium = Adengo (0.375 L/HA) and Dimetenamida 72% (1L/HA). Adengo wait=4 <= trigo 5mo, pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo' or 'Dimetenamida'",
+      "No plant-back restriction warning for trigo"
+    ]
+  },
+  {
+    "id": "TC-13",
+    "name": "G3, pre, not sandy -> high dose",
+    "query": "En mi campo de maiz en Navarra tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, pre, not sandy -> high dose. Rank 1 high = Adengo (0.44 L/HA) and Dimetenamida 72% (1L/HA). Adengo wait=4 <= 5, pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo' or 'Dimetenamida'",
+      "Response mentions Chenopodium album"
+    ]
+  },
+  {
+    "id": "TC-14",
+    "name": "G2, pre-emergence -> low dose (no stage asked)",
+    "query": "En mi campo de maiz en Burgos tengo Abutilon theophrasti. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G2, pre -> low dose. Rank 1 low pre = Adengo (0.33 L/HA). Adengo wait for trigo G2: should pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response does NOT ask about weed development stage",
+      "Primary recommendation mentions 'Adengo' or 'Spade Flexx'"
+    ]
+  },
+  {
+    "id": "TC-15",
+    "name": "G2, post, 3+ leaves -> high dose",
+    "query": "En mi campo de maiz en Burgos tengo Amaranthus retroflexus en post-emergencia. Las malas hierbas tienen tres hojas o mas. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G2, post, 3+ leaves -> high dose. Rank 1 high post = Monsoon (1.75 L/HA) and Fluva (0.3 L/HA), lower_score=6.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Monsoon'",
+      "Primary recommendation mentions 'Fluva'"
+    ]
+  },
+  {
+    "id": "TC-16",
+    "name": "G1, post, standard weed (no special path)",
+    "query": "En mi campo de maiz en Galicia tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G1, high dose, post. Rank 1 = Laudis WG (0.5KG/HA) and Fluva (0.3L/HA), lower_score=6. Standard table lookup, not hardcoded.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG' or 'Fluva'",
+      "Response references Chenopodium album"
+    ]
+  },
+  {
+    "id": "TC-17",
+    "name": "G1, pre, standard weed",
+    "query": "En mi campo de maiz en Galicia tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G1, high dose, pre. Standard lookup. Rank 1 = Adengo (0.44 L/HA) and Dimetenamida 72% (1L/HA). All pass for trigo.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo' or 'Dimetenamida'",
+      "No plant-back restriction warning"
+    ]
+  },
+  {
+    "id": "TC-18",
+    "name": "Two-weed combo, pre, G3",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti y Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Two-weed, G3, high, pre. Rank 1 = Adengo (0.44 L/HA) and Dimetenamida 72% (1L/HA). Trigo G3: Adengo=4, Dimetenamida=1 both <= 5.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo' or 'Dimetenamida'",
+      "Response references both weeds"
+    ]
+  },
+  {
+    "id": "TC-19",
+    "name": "Treatment with Adengo -> Adengo warning",
+    "query": "En mi campo de maiz en Navarra tengo Brassica napus. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, pre. Rank 1 = Adengo (0.44 L/HA), lower_score=5. Should include Adengo application warning.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo'",
+      "Response includes a warning or note about Adengo application"
+    ]
+  },
+  {
+    "id": "TC-20",
+    "name": "Treatment with Monsoon -> 6-leaf warning",
+    "query": "En mi campo de maiz en Navarra tengo Echinochloa crus-galli. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Rank 1 has Monsoon. Should include 6-leaf warning.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions a warning about the 6-leaf stage of corn or applying Monsoon before a certain growth stage"
+    ]
+  },
+  {
+    "id": "TC-21",
+    "name": "Follow-up with Adengo previously applied (Adengo only taboo)",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia como tratamiento de seguimiento. Ya aplique Adengo anteriormente. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Adengo in previously_applied_products -> only Adengo is taboo. Spade Flexx and Monsoon are NOT blocked. Should recommend top-ranked treatment excluding Adengo only.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT mention Adengo (taboo as previously applied)",
+      "Response includes product names and dosages"
+    ]
+  },
+  {
+    "id": "TC-22",
+    "name": "Multiple taboo products (3 products)",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo. No puedo usar Laudis WG, Monsoon ni Capreno.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Taboo: Laudis WG, Monsoon, Capreno. Rank 7 (Capreno+Fluva) also excluded. Next valid = Rank 8: Fluva (0.3 L/HA) and Oizysa (0.5 L/HA).",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation does NOT mention 'Laudis WG'",
+      "Primary recommendation does NOT mention 'Monsoon'",
+      "Primary recommendation does NOT mention 'Capreno'",
+      "Primary recommendation mentions 'Fluva' or 'Oizysa'"
+    ]
+  },
+  {
+    "id": "TC-23",
+    "name": "All ranks fail wait time (ajo G3, post)",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera ajo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Ajo interval=4mo. Laudis WG wait=5>4 FAIL, Monsoon=24 FAIL. Most products fail. Should report no valid treatments or few valid ones with exclusion reasons.",
+    "criteria": [
+      "Response mentions plant-back restriction or residue degradation issue",
+      "Response mentions that treatments cannot be used or were excluded due to wait times for ajo"
+    ]
+  },
+  {
+    "id": "TC-24",
+    "name": "Crop with long interval - sorgo (11mo), all pass easily",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera sorgo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Sorgo interval=11mo. Most products pass easily. Rank 1 = Laudis WG + Monsoon. All pass.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG' or 'Monsoon'",
+      "No plant-back restriction warning"
+    ]
+  },
+  {
+    "id": "TC-25",
+    "name": "Colza (3mo interval) - very tight, most fail",
+    "query": "En mi campo de maiz en Navarra tengo Convolvulus arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera colza.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Colza interval=3mo. Laudis WG=4>3 FAIL, Monsoon=12 FAIL. Only Cubix(1), Fluva(1), Oizysa(1) pass. Rank 1 Fluoxipir(1) passes.",
+    "criteria": [
+      "Response contains a recommendation or mentions exclusions",
+      "Response mentions plant-back issues or that many treatments were excluded for colza"
+    ]
+  },
+  {
+    "id": "TC-26",
+    "name": "Restriction text in recommendation (Spade Flexx + trigo G2)",
+    "query": "En mi campo de maiz en Burgos tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G2, pre -> low dose. Spade Flexx has restriction for trigo: 'Evitar la siembra directa'. Restriction text should appear.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions a restriction or agronomic requirement about soil preparation or avoiding direct seeding"
+    ]
+  },
+  {
+    "id": "TC-27",
+    "name": "Palmeri G3 HIGH + soja (Diflufenican/Fluva fail wait)",
+    "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera soja.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded palmeri path. Soja interval=9mo. Products: Spade Flexx(1), Fluva(24 FAIL), Oizysa(1), Dimetenamida(1), Diflufenican(24 FAIL). Plant-back warning.",
+    "criteria": [
+      "Response mentions the hardcoded consecutive treatment products",
+      "Response warns that soja cannot be planted due to herbicide residue restrictions"
+    ]
+  },
+  {
+    "id": "TC-28",
+    "name": "Cyperus G1 LOW post + ajo (Monsoon 24mo fails)",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera ajo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus path, low+post: Monsoon+Fluva. Ajo interval=4mo. Monsoon wait=24 FAILS. Plant-back warning for ajo.",
+    "criteria": [
+      "Response mentions 'Monsoon' and 'Fluva' as the treatment",
+      "Response warns that ajo cannot be planted due to herbicide residue restrictions"
+    ]
+  },
+  {
+    "id": "TC-29",
+    "name": "Setaria G1 HIGH + ajo (plant-back fail)",
+    "query": "En mi campo de maiz en Asturias tengo Setaria viridis con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Setaria path. Ajo interval=4mo. Monsoon wait=24 FAILS. Plant-back warning.",
+    "criteria": [
+      "Response mentions the consecutive scheme products",
+      "Response warns about plant-back restriction or inability to plant ajo"
+    ]
+  },
+  {
+    "id": "TC-30",
+    "name": "Palmeri G3 LOW + ajo (Diflufenican 24mo fails)",
+    "query": "En mi campo de maiz en Zaragoza tengo Amaranthus palmeri con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera ajo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded palmeri low pressure path. Ajo interval=4mo. Diflufenican wait=24 FAILS. Plant-back warning.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' and 'Dimetenamida' and 'Diflufenican'",
+      "Response warns about plant-back restriction or inability to plant ajo"
+    ]
+  },
+  {
+    "id": "TC-31",
+    "name": "Cyperus rotundus, G1, HIGH pressure, consecutive",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 high: Pre = Spade Flexx 0.33 + Dimetenamida 72% 1.0. Post = Monsoon 1.5 + Fluva 0.3. Consecutive scheme.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' in the pre-emergence treatment",
+      "Response mentions 'Dimetenamida' in the pre-emergence treatment",
+      "Response mentions 'Monsoon' in the post-emergence treatment",
+      "Response mentions 'Fluva' in the post-emergence treatment",
+      "Response describes a consecutive pre+post scheme"
+    ]
+  },
+  {
+    "id": "TC-32",
+    "name": "Cyperus rotundus, G1, LOW pressure, PRE",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus con presion baja. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 low+pre: Spade Flexx (0.33 L/HA) + Fluva (0.3 L/HA). Not consecutive.",
+    "criteria": [
+      "Response mentions 'Spade Flexx'",
+      "Response mentions 'Fluva'",
+      "Response does NOT describe a consecutive pre+post scheme",
+      "Response does NOT mention 'Monsoon' as a recommended product"
+    ]
+  },
+  {
+    "id": "TC-33",
+    "name": "Cyperus esculentus, G1, HIGH, consecutive",
+    "query": "En mi campo de maiz en Asturias tengo Cyperus esculentus con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 high: same consecutive scheme as rotundus. Pre: Spade Flexx + Dimetenamida. Post: Monsoon + Fluva.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' and 'Dimetenamida' in pre-emergence",
+      "Response mentions 'Monsoon' and 'Fluva' in post-emergence",
+      "Response describes a consecutive scheme"
+    ]
+  },
+  {
+    "id": "TC-34",
+    "name": "Cyperus esculentus, G1, LOW, POST",
+    "query": "En mi campo de maiz en Asturias tengo Cyperus esculentus con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus G1 low+post: Monsoon (1.5 L/HA) + Fluva (0.3 L/HA). 6-leaf warning.",
+    "criteria": [
+      "Response mentions 'Monsoon'",
+      "Response mentions 'Fluva'",
+      "Response includes 6-leaf stage warning"
+    ]
+  },
+  {
+    "id": "TC-35",
+    "name": "Setaria verticilata, G1, HIGH, consecutive",
+    "query": "En mi campo de maiz en Cantabria tengo Setaria verticilata con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Setaria G1 high: Pre: Spade Flexx 0.33 + Dimetenamida 72% 1.4. Post: Monsoon 1.5 + Cubix 1.5.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' and 'Dimetenamida' in pre-emergence",
+      "Response mentions 'Monsoon' and 'Cubix' in post-emergence",
+      "Response describes a consecutive scheme",
+      "Response mentions monitoring Setaria or early treatment"
+    ]
+  },
+  {
+    "id": "TC-36",
+    "name": "Setaria G1 LOW -> standard table lookup (not hardcoded)",
+    "query": "En mi campo de maiz en Galicia tengo Setaria viridis con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G1, low pressure Setaria -> standard table lookup (NOT hardcoded). Rank 1 high post = Monsoon (1.5 L/HA) and Cubix (2 L/HA).",
+    "criteria": [
+      "Response contains a herbicide recommendation from standard table",
+      "Response mentions 'Monsoon' or 'Cubix' as recommended products",
+      "Response does NOT describe a consecutive pre+post scheme"
+    ]
+  },
+  {
+    "id": "TC-37",
+    "name": "Palmeri G3 + two weeds -> hardcoded path",
+    "query": "En mi campo de maiz en Huesca tengo Amaranthus palmeri y Chenopodium album con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded palmeri path triggered even with two weeds. Consecutive scheme: Pre: Spade Flexx + Dimetenamida + Diflufenican. Post: Fluva + Oizysa.",
+    "criteria": [
+      "Response mentions 'Spade Flexx' and 'Dimetenamida' and 'Diflufenican'",
+      "Response mentions 'Fluva' and 'Oizysa'",
+      "Response describes a consecutive scheme",
+      "Response references both weeds"
+    ]
+  },
+  {
+    "id": "TC-38",
+    "name": "Cyperus + two weeds -> hardcoded path",
+    "query": "En mi campo de maiz en Galicia tengo Cyperus rotundus y Chenopodium album con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Hardcoded Cyperus path triggered with two weeds. Low+post: Monsoon + Fluva.",
+    "criteria": [
+      "Response mentions 'Monsoon' and 'Fluva'",
+      "Response references both weeds",
+      "Response includes 6-leaf warning"
+    ]
+  },
+  {
+    "id": "TC-39",
+    "name": "Limited efficacy warning (lower_score=3)",
+    "query": "En mi campo de maiz en Navarra tengo Convolvulus arvensis. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo. No puedo usar Fluoxipir 20%, Laudis WG, Monsoon.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. With Fluoxipir, Laudis WG, Monsoon taboo, remaining treatments have lower efficacy. Should mention limited efficacy.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions limited efficacy or lower effectiveness compared to standard options"
+    ]
+  },
+  {
+    "id": "TC-40",
+    "name": "Very limited efficacy (Agropyron pre, score=2)",
+    "query": "En mi campo de maiz en Navarra tengo Agropyron repens. Quiero aplicar un herbicida en pre-emergencia. El suelo no es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, pre. Rank 1 = Adengo (0.44 L/HA), lower_score=2. Very limited efficacy warning.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions very limited efficacy or low effectiveness",
+      "Primary recommendation mentions 'Adengo'"
+    ]
+  },
+  {
+    "id": "TC-41",
+    "name": "Alternatives with equal efficacy",
+    "query": "En mi campo de maiz en Navarra tengo Solanum nigrum. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Rank 1-3 all lower_score=5. Alternatives should say similar efficacy.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions 'Laudis WG' or 'Monsoon' in primary"
+    ]
+  },
+  {
+    "id": "TC-42",
+    "name": "Sorghum halepense - Cubix solo treatment",
+    "query": "En mi campo de maiz en Navarra tengo Sorghum halepense. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Rank 1 = Cubix (2.7 L/HA), lower_score=5. Single product treatment.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Cubix'",
+      "Response references Sorghum halepense"
+    ]
+  },
+  {
+    "id": "TC-43",
+    "name": "Spanish name resolution: juncia -> Cyperus",
+    "query": "En mi campo de maiz en Galicia tengo juncia con presion baja. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "'juncia' should resolve to Cyperus rotundus. G1, hardcoded Cyperus path, low+post: Monsoon + Fluva.",
+    "criteria": [
+      "Response provides a herbicide recommendation (not 'weed not found')",
+      "Response mentions Cyperus or the Cyperus hardcoded treatment (Monsoon, Fluva)",
+      "Response does NOT ask the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-44",
+    "name": "Spanish name resolution: cenizo -> Chenopodium",
+    "query": "En mi campo de maiz en Navarra tengo cenizo. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "'cenizo' should resolve to Chenopodium album. G3, high, post. Standard treatment.",
+    "criteria": [
+      "Response provides a herbicide recommendation",
+      "Response mentions Chenopodium album or valid treatment products",
+      "Response does NOT ask the user to clarify the weed name"
+    ]
+  },
+  {
+    "id": "TC-45",
+    "name": "Crop English name: wheat -> trigo",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera wheat.",
+    "follow_up_answers": {},
+    "expected": "'wheat' should resolve to 'trigo' via crop name variations. Same result as TC-01 for Navarra.",
+    "criteria": [
+      "Response provides a herbicide recommendation (not a crop not found error)",
+      "Response mentions 'Laudis WG' or 'Monsoon' or another valid treatment"
+    ]
+  },
+  {
+    "id": "TC-46",
+    "name": "Crop variation: papa -> patata",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera papa.",
+    "follow_up_answers": {},
+    "expected": "'papa' should resolve to 'patata' via crop variations. Patata interval=9mo. Most products pass.",
+    "criteria": [
+      "Response provides a herbicide recommendation (not a crop not found error)",
+      "Response mentions valid treatment products"
+    ]
+  },
+  {
+    "id": "TC-47",
+    "name": "Genus-only weed name: Amaranthus",
+    "query": "En mi campo de maiz en Navarra tengo Amaranthus. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "'Amaranthus' genus should resolve to a specific Amaranthus species or prompt for clarification.",
+    "criteria": [
+      "Response provides a recommendation OR asks which specific Amaranthus species",
+      "Response does NOT return a generic error"
+    ]
+  },
+  {
+    "id": "TC-48",
+    "name": "Misspelled weed: Abbutilon teophrasti",
+    "query": "En mi campo de maiz en Navarra tengo Abbutilon teophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "Misspelling should resolve via embedding similarity to Abutilon Theophrasti. Same result as TC-01 for Navarra.",
+    "criteria": [
+      "Response provides a herbicide recommendation (not weed not found error)",
+      "Response mentions valid treatment products for Abutilon Theophrasti"
+    ]
+  },
+  {
+    "id": "TC-49",
+    "name": "Next crop: maiz (10mo interval, all pass)",
+    "query": "En mi campo de maiz en Navarra tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera maiz.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Maiz interval=10mo. All products wait=1mo. Everything passes. Rank 1 = Laudis WG + Oizysa.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "No plant-back restriction warning",
+      "Response mentions 'Laudis WG' or 'Oizysa'"
+    ]
+  },
+  {
+    "id": "TC-50",
+    "name": "Next crop: espinaca (5mo, many fail)",
+    "query": "En mi campo de maiz en Navarra tengo Datura stramonium. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera espinaca.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Espinaca interval=5mo. Laudis WG=9 FAIL, Monsoon=10 FAIL. Only Cubix(1), Oizysa(1), Spade Flexx(1) pass. May have exclusion reasons.",
+    "criteria": [
+      "Response contains a recommendation or mentions treatments excluded",
+      "Response mentions plant-back issues for espinaca or that some treatments were excluded"
+    ]
+  },
+  {
+    "id": "TC-51",
+    "name": "Next crop: guisante (8mo, Fluva 24mo fails)",
+    "query": "En mi campo de maiz en Navarra tengo Amaranthus retroflexus. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera guisante.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Guisante interval=8mo. Rank 1 Monsoon(1)+Fluva(24 FAIL). Rank 2 Monsoon(1)+Fluva(24 FAIL). Treatments with Fluva fail. Laudis WG=9 FAIL too.",
+    "criteria": [
+      "Response mentions plant-back restriction or treatment exclusions for guisante",
+      "Response does NOT recommend Fluva as primary (it fails the 24mo wait)"
+    ]
+  },
+  {
+    "id": "TC-52",
+    "name": "Next crop: girasol, pre, sandy, medium dose",
+    "query": "En mi campo de maiz en Navarra tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El suelo es arenoso. El proximo cultivo sera girasol.",
+    "follow_up_answers": {},
+    "expected": "G3, pre, sandy -> medium dose. Girasol interval=10mo. Rank 1 medium = Adengo (0.375)+Dimetenamida. Adengo wait=11>10 FAILS. Rank 2 = Spade Flexx(1)+Dimetenamida(1) passes.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions plant-back issue for Adengo or recommends Spade Flexx as primary"
+    ]
+  },
+  {
+    "id": "TC-53",
+    "name": "Next crop: remolacha (9mo, multiple 24mo fails)",
+    "query": "En mi campo de maiz en Navarra tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera remolacha.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Remolacha interval=9mo. Monsoon=10 FAIL, Capreno=10 FAIL, Fluva=24 FAIL. Laudis WG=9 PASSES (9>=9). Some treatments pass.",
+    "criteria": [
+      "Response contains a recommendation or mentions exclusions",
+      "Response mentions some treatments excluded due to plant-back restrictions for remolacha"
+    ]
+  },
+  {
+    "id": "TC-54",
+    "name": "Next crop: alfalfa (9mo, Diflufenican 24mo fails)",
+    "query": "En mi campo de maiz en Navarra tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera alfalfa.",
+    "follow_up_answers": {},
+    "expected": "G3, high, post. Alfalfa interval=9mo. All main products pass except Diflufenican(24). Standard treatment should work.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions valid products (Laudis WG, Fluva, Monsoon, etc.)"
+    ]
+  },
+  {
+    "id": "TC-55",
+    "name": "Location: Cantabria (Group 1)",
+    "query": "En mi campo de maiz en Cantabria tengo Chenopodium album. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G1 standard path. Same treatment as G1 Galicia. Rank 1 = Laudis WG + Fluva.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions Cantabria or provides treatment for the specified location"
+    ]
+  },
+  {
+    "id": "TC-56",
+    "name": "Location: Leon (Group 2), low dose",
+    "query": "En mi campo de maiz en Leon tengo Abutilon theophrasti en post-emergencia. Las malas hierbas tienen menos de tres hojas. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G2 (Leon is Castilla y Leon), post, <3 leaves -> low dose. Standard lookup.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response mentions Leon or Castilla y Leon region"
+    ]
+  },
+  {
+    "id": "TC-57",
+    "name": "Location: Salamanca (Group 2), pre -> low dose",
+    "query": "En mi campo de maiz en Salamanca tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G2, pre -> low dose. No stage asked for pre-emergence. Standard lookup.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Response does NOT ask about weed development stage"
+    ]
+  },
+  {
+    "id": "TC-58",
+    "name": "Location: Extremadura (Group 3)",
+    "query": "En mi campo de maiz en Extremadura tengo Abutilon theophrasti. Quiero aplicar un herbicida en post-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, high dose. Same result as other G3 locations. Rank 1 = Laudis WG + Monsoon.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Laudis WG' or 'Monsoon'"
+    ]
+  },
+  {
+    "id": "TC-59",
+    "name": "Location: Cataluna (Group 3), pre, sandy -> medium",
+    "query": "En mi campo de maiz en Cataluna tengo Chenopodium album. Quiero aplicar un herbicida en pre-emergencia. El suelo es arenoso. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3, pre, sandy -> medium dose. Same as TC-12 but different location. Rank 1 medium = Adengo (0.375) + Dimetenamida.",
+    "criteria": [
+      "Response contains a herbicide recommendation",
+      "Primary recommendation mentions 'Adengo' or 'Dimetenamida'"
+    ]
+  },
+  {
+    "id": "TC-60",
+    "name": "Location: Andalucia (Group 3), palmeri path",
+    "query": "En mi campo de maiz en Andalucia tengo Amaranthus palmeri con presion alta. Quiero aplicar un herbicida en pre-emergencia. El proximo cultivo sera trigo.",
+    "follow_up_answers": {},
+    "expected": "G3 palmeri high pressure hardcoded path. Same consecutive scheme as TC-04.",
+    "criteria": [
+      "Response mentions 'Spade Flexx', 'Dimetenamida', 'Diflufenican' in pre-emergence",
+      "Response mentions 'Fluva' and 'Oizysa' in post-emergence",
+      "Response describes a consecutive scheme"
+    ]
+  }
+]
