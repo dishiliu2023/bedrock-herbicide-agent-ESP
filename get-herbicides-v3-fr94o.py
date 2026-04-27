@@ -323,7 +323,11 @@ def lambda_handler(event, context):
     # Amaranthus palmeri G3 (any pressure) → hardcoded path, timing irrelevant
     if location_group_num == 3 and "amaranthus palmeri" in weed_lower:
         skip_timing_validation = True
-    
+
+    # Sorghum halepense in G1 or G3 (any pressure) → hardcoded consecutive, timing irrelevant
+    if location_group_num in (1, 3) and "sorghum halepense" in weed_lower:
+        skip_timing_validation = True
+
     if skip_timing_validation:
         timing = "consecutive"  # placeholder — hardcoded paths don't use this value
     elif "post" in timing:
@@ -514,9 +518,16 @@ def lambda_handler(event, context):
     if (location_group_num == 1 and (weed_pressure_level == "low" or ( weed_1.lower() != 'setaria verticilata' and  weed_2.lower() != 'setaria verticilata'\
                                                                       and weed_1.lower() != 'setaria viridis' and  weed_2.lower() != 'setaria viridis'))\
                                 and weed_1.lower() != 'cyperus rotundus'   and  weed_2.lower() != 'cyperus rotundus'\
-                                and weed_1.lower() != 'cyperus esculentus' and  weed_2.lower() != 'cyperus esculentus') \
+                                and weed_1.lower() != 'cyperus esculentus' and  weed_2.lower() != 'cyperus esculentus'\
+                                and ((weed_1.lower() != 'sorghum halepense' and weed_2.lower() != 'sorghum halepense')\
+                                     or weed_1.lower() in ('setaria verticilata', 'setaria viridis')\
+                                     or weed_2.lower() in ('setaria verticilata', 'setaria viridis'))) \
+        or (location_group_num == 1 and weed_pressure_level == "low" \
+            and ((weed_1.lower() in ('setaria verticilata', 'setaria viridis') and weed_2.lower() in ('cyperus rotundus', 'cyperus esculentus')) \
+                 or (weed_2.lower() in ('setaria verticilata', 'setaria viridis') and weed_1.lower() in ('cyperus rotundus', 'cyperus esculentus')))) \
         or location_group_num == 2\
-        or (location_group_num == 3 and weed_1.lower() != 'amaranthus palmeri' and  weed_2.lower() != 'amaranthus palmeri'):
+        or (location_group_num == 3 and weed_1.lower() != 'amaranthus palmeri' and  weed_2.lower() != 'amaranthus palmeri'\
+                                    and weed_1.lower() != 'sorghum halepense' and  weed_2.lower() != 'sorghum halepense'):
 
         # Filter herbicide treatments
         if len(weed_latin_list) >1: 
@@ -828,9 +839,28 @@ def lambda_handler(event, context):
         #print(payload)
         response = build_bedrock_response(event, 200, payload, updated_session_attributes)
 
+    elif (location_group_num == 1 and weed_pressure_level == 'high'
+          and ((weed_1.lower() in ('setaria verticilata', 'setaria viridis') and weed_2.lower() in ('cyperus rotundus', 'cyperus esculentus'))
+               or (weed_2.lower() in ('setaria verticilata', 'setaria viridis') and weed_1.lower() in ('cyperus rotundus', 'cyperus esculentus')))):
+
+        pretext = f"For corn fields in {location}, to control weed {weed_1} and {weed_2}, with {standardized_crop} to be planted in next season, "
+
+        additional_text = "in cases of high weed pressure, the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Adengo (0.4 L/HA) together with Dimetenamida 72% (1.0 L/HA); This should be followed by a post-emergence application of Cubix (2.0 L/HA) together with Fluva (0.3 L/HA). It is important to closely monitor weed emergence and treat Setaria as soon as it appears, while it is still small."
+
+        product_names = [ "Adengo", "Dimetenamida 72%", "Cubix", "Fluva" ]
+
+        additional_text, _ = check_wait_times(product_names, standardized_crop, location_group_num, interval, additional_text, next_crop)
+
+        payload = json.dumps({
+            "primary_herbicide_recommendation_and_agronomic_requirement":  pretext + additional_text,
+            "override_timing": "true"
+             })
+
+        response = build_bedrock_response(event, 200, payload, updated_session_attributes)
+
     elif (location_group_num == 1 and (    weed_1.lower() == 'cyperus esculentus' or  weed_2.lower() == 'cyperus esculentus'
                                         or weed_1.lower() == 'cyperus rotundus'   or  weed_2.lower() == 'cyperus rotundus')
-       ): 
+       ):
 
         if len(weed_latin_list) >1:
             pretext = f"For corn fields in {location}, to control weed {weed_1} and {weed_2}, with {standardized_crop} to be planted in next season, "
@@ -838,18 +868,18 @@ def lambda_handler(event, context):
             pretext = f"For corn fields in {location}, to control weed {weed_1}, with {standardized_crop} to be planted in next season, "
         
         if weed_pressure_level == 'high':
-            additional_text = "in cases of high weed pressure, the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Spade Flexx (0.33 L/HA) together with Dimetenamida 72% (1.0 L/HA); This should be followed by a post-emergence application of Monsoon (1.5 L/HA) together with Fluva (0.3 L/HA)."
+            additional_text = "in cases of high weed pressure, the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Adengo (0.4 L/HA) together with Dimetenamida 72% (1.0 L/HA); This should be followed by a post-emergence application of Laudis WG (0.5 L/HA) together with Fluva (0.3 L/HA)."
         elif  timing == "pre-emergence":
-            additional_text = "in cases of low weed pressure and a pre-emergence treatment, the recommendation is applications of Spade Flexx (0.33 L/HA) together with Fluva (0.3 L/HA)"  
+            additional_text = "in cases of low weed pressure and a pre-emergence treatment, the recommendation is applications of Adengo (0.4 L/HA) together with Dimetenamida 72% (1.0 L/HA)"
         elif  timing == "post-emergence":
             additional_text = "in cases of low weed pressure and a post-emergence treatment, the recommendation is applications of Monsoon (1.5 L/HA) together with Fluva (0.3 L/HA)"
 
         ##########################################################################
 
         if weed_pressure_level == 'high':
-            product_names = [ "Spade Flexx", "Fluva", "Monsoon", "Dimetenamida 72%" ]
+            product_names = [ "Adengo", "Dimetenamida 72%", "Laudis WG", "Fluva" ]
         elif timing == "pre-emergence":
-            product_names = [   "Spade Flexx", "Fluva"  ]
+            product_names = [   "Adengo", "Dimetenamida 72%"  ]
         elif timing == "post-emergence":
             product_names = [   "Monsoon", "Fluva"  ]
 
@@ -871,10 +901,31 @@ def lambda_handler(event, context):
         else:
             pretext = f"For corn fields in {location}, to control weed {weed_1}, with {standardized_crop} to be planted in next season, "
 
-        additional_text = "in cases of high weed pressure, the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Spade Flexx (0.33 L/HA) together with Dimetenamida 72% (1.4 L/HA); This should be followed by a post-emergence application of Monsoon (1.5 L/HA) together with Cubix (1.5 L/HA). It is important to closely monitor weed emergence and treat Setaria as soon as it appears, while it is still small."
+        additional_text = "in cases of high weed pressure, the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Adengo (0.4 L/HA) together with Dimetenamida 72% (1.0 L/HA); This should be followed by a post-emergence application of Cubix (1.5 L/HA). It is important to closely monitor weed emergence and treat Setaria as soon as it appears, while it is still small."
         ##########################################################################
 
-        product_names = [ "Spade Flexx", "Cubix", "Monsoon", "Dimetenamida 72%" ]
+        product_names = [ "Adengo", "Dimetenamida 72%", "Cubix" ]
+
+        additional_text, _ = check_wait_times(product_names, standardized_crop, location_group_num, interval, additional_text, next_crop)
+
+        payload = json.dumps({
+            "primary_herbicide_recommendation_and_agronomic_requirement":  pretext + additional_text,
+            "override_timing": "true"
+             })
+
+        response = build_bedrock_response(event, 200, payload, updated_session_attributes)
+
+    elif (location_group_num in (1, 3)
+          and (weed_1.lower() == 'sorghum halepense' or weed_2.lower() == 'sorghum halepense')):
+
+        if len(weed_latin_list) > 1:
+            pretext = f"For corn fields in {location}, to control weed {weed_1} and {weed_2}, with {standardized_crop} to be planted in next season, "
+        else:
+            pretext = f"For corn fields in {location}, to control weed {weed_1}, with {standardized_crop} to be planted in next season, "
+
+        additional_text = "the recommended solution is a consecutive application scheme consisting of both pre-emergence and post-emergence treatments. The pre-emergence application involves using Adengo (0.44 L/HA) together with Dimetenamida 72% (1.0 L/HA); This should be followed by a post-emergence application of Laudis WG (0.5 L/HA)."
+
+        product_names = [ "Adengo", "Dimetenamida 72%", "Laudis WG" ]
 
         additional_text, _ = check_wait_times(product_names, standardized_crop, location_group_num, interval, additional_text, next_crop)
 
